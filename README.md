@@ -1,0 +1,2 @@
+fuse-kit-smoketest
+==================
