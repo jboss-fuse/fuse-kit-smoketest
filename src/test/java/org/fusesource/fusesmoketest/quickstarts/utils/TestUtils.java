@@ -39,12 +39,12 @@ public class TestUtils {
      */
     public static List<String> listFileNamesInDirectory(String directoryName) throws IOException {
         File directory = new File(directoryName);
-        @SuppressWarnings("unchecked")
-        Collection<File> files = FileUtils.listFiles(directory, null, true);
         List<String> fileNames = new ArrayList<String>();
-        for (File f : files) {
-            fileNames.add(f.getCanonicalPath().replaceAll("\\\\", "/"));
-            //fileNames.add(f.getAbsolutePath());
+        if (directory.exists()) {
+            Collection<File> files = FileUtils.listFiles(directory, null, true);
+            for (File f : files) {
+                fileNames.add(f.getCanonicalPath().replaceAll("\\\\", "/"));
+            }
         }
 
         return fileNames;
