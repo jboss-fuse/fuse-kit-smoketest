@@ -7,6 +7,7 @@ import org.junit.BeforeClass;
  */
 public abstract class FuseSmokeTestBase {
     protected static String FUSE_HOME;	// is there a good default?
+    protected static final String EXAMPLES_URL_BASE = "http://localhost:8181/cxf";
 
     @BeforeClass      // TODO at least the first part needs to be done for all tests.
     public static void setUpBeforeClass() throws Exception {
