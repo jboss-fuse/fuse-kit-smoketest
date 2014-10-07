@@ -1,15 +1,18 @@
 package org.fusesource.fusesmoketest.karaf;
 
 import com.jcraft.jsch.JSchException;
+import org.fusesource.fusesmoketest.utils.FabricSupport;
 import org.fusesource.fusesmoketest.utils.SSHClient;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,6 +23,12 @@ public class KarafTest {
     @Rule
     public TestName testName = new TestName();
     private static final SSHClient sshClient = new SSHClient();
+
+    @BeforeClass
+    public static void init() throws Exception {
+        LOG.info(">>>> Creating fabric in init()");
+        //FabricSupport.createFabric();       // TODO what happens if there already is a fabric?
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -73,11 +82,27 @@ public class KarafTest {
             "fab", "fabric", "features", "help", "jaas", "log", "osgi", "packages", "patch",
             "scr", "shell", "ssh"};
         List<String> commands = Arrays.asList(commandStrings);
+        List<String> failures = new ArrayList<String>();
+        String response = sshClient.executeCommand("*:help");
+        LOG.debug(">>>>> RESPONSE [" + response + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         for (String command : commands) {
-            String response = sshClient.executeCommand("*:help");
-            LOG.debug(response);
-            assertTrue("Fuse should contain '" + command + "' command" , response.contains(command));
+            if (!response.contains(command)) {
+                LOG.debug(">>>> FAILED: " + command);
+                failures.add(command);
+            }
         }
+
+        StringBuilder builder = new StringBuilder();
+        if (!failures.isEmpty()) {
+            builder.append("Command(s) [");
+            for (String command : failures) {
+                LOG.info("COMMAND [" + command + " ] not found");
+                builder.append(command + " ");
+            }
+            builder.append("] not found");
+        }
+
+        assertEquals(builder.toString(), 0, failures.size());
     }
 
     @Test(timeout = 30 * 1000)

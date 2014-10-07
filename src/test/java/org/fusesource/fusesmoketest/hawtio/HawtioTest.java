@@ -1,6 +1,5 @@
 package org.fusesource.fusesmoketest.hawtio;
 
-import com.jcraft.jsch.JSchException;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -17,10 +16,9 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
-import org.fusesource.fusesmoketest.utils.SSHClient;
+import org.fusesource.fusesmoketest.SmokeTestBase;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
@@ -30,30 +28,18 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.net.URI;
 
-import static org.junit.Assert.assertEquals;
-
-public class HawtioTest {
+public class HawtioTest extends SmokeTestBase {
     protected static final Logger LOG = LoggerFactory.getLogger(HawtioTest.class);
     @Rule
     public TestName testName = new TestName();
 
-    protected static String FUSE_USER ="admin";
-    protected static String FUSE_PASSWORD ="admin";
 
-    private static final SSHClient sshClient = new SSHClient();
     private static final String HAWTIO_LOGIN_URL = "http://localhost:8181/hawtio/login/";
 
     private HttpHost host = null;
     private HttpClientContext localContext = null;
     private AuthCache authCache = null;
     private CloseableHttpClient httpClient;
-
-    @BeforeClass
-    public static void init() throws Exception {
-        FUSE_USER = System.getProperty("FUSE_USER", FUSE_USER);
-        FUSE_PASSWORD = System.getProperty("FUSE_PASSWORD", FUSE_PASSWORD);
-    }
-
 
     @Before
     public void setUp() throws Exception {
@@ -105,27 +91,4 @@ public class HawtioTest {
         HttpResponse response = httpClient.execute(host, httpPost, localContext);
         return response;
     }
-
-    // FIXME  we have the same thing in FabricSupport, put it in one place
-    private static void sshInit() throws JSchException, InterruptedException {
-        int MAX_ATTEMPTS = 100;
-        int attempt = 0;
-
-        while(attempt < MAX_ATTEMPTS){
-            try{
-                sshClient.init();
-                if(sshClient.isConnected()) {      // TODO is it possible to get here and not be connected?
-                    return;
-                }
-            } catch (JSchException e ){
-                LOG.info("Connect failed with " + e.getMessage() + ", retrying...");
-            }
-
-            Thread.sleep(1000);
-            attempt++;
-        }
-
-    }
-
-
 }
