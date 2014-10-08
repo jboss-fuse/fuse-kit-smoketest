@@ -29,7 +29,7 @@ public class ContentBasedRouterPatternTest extends CamelSmokeTestBase {
         };
     }
 
-    @Test
+    @Test(timeout = 60 * 1000)
     public void contentBasedRouterTest() throws Exception {
         template.sendBodyAndHeader("direct:messageRouter", "Hello1", "foo", "bar");
         template.sendBodyAndHeader("direct:messageRouter", "Hello2", "foo", "cheese");

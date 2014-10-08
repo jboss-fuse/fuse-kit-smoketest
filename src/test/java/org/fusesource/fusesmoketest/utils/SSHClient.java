@@ -31,7 +31,6 @@ public class SSHClient {
     private Channel channel;
     JSch ssh = new JSch();
 
-    // FIXME what constructors do we need?
     public SSHClient() {
         // default values are used
     }

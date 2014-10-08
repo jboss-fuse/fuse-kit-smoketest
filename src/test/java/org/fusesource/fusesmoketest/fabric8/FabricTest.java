@@ -1,6 +1,7 @@
 package org.fusesource.fusesmoketest.fabric8;
 
 import org.fusesource.fusesmoketest.SmokeTestBase;
+//import org.fusesource.fusesmoketest.utils.FabricSupport;
 import org.fusesource.fusesmoketest.utils.FabricSupport;
 import org.junit.After;
 import org.junit.Before;
@@ -18,7 +19,7 @@ public class FabricTest extends SmokeTestBase {
     @BeforeClass
     public static void init() throws Exception {
         LOG.info(">>>> Creating fabric in init()");
-        FabricSupport.createFabric();       // TODO what happens if there already is a fabric?
+        FabricSupport.createFabric();
     }
 
     @Before
@@ -72,8 +73,6 @@ public class FabricTest extends SmokeTestBase {
 
     @Test(timeout = 5 * 60 * 1000)
     public void createAndDeleteContainer() throws Exception {
-        FabricSupport.sshInit();        // FIXME do in setup before each test?
-
         String newContainerName="newtestcontainer";
         String response= FabricSupport.executeCommand("container-list");
         LOG.info(">>>> Response from first list " + response);
@@ -105,7 +104,7 @@ public class FabricTest extends SmokeTestBase {
         assertTrue(response.contains("the profile which runs a full JBoss A-MQ distribution and starts the broker on 61616 port"));
     }
 
-    @Test(timeout = 200 * 60 * 1000)
+    @Test(timeout = 60 * 1000)
     public void testProfileCreateModifyDelete() throws Exception  {
         String testProfileName = "test-profile-" + System.currentTimeMillis();
 
@@ -117,7 +116,6 @@ public class FabricTest extends SmokeTestBase {
         response = FabricSupport.executeCommand("profile-list | grep " + testProfileName);
         assertTrue(response.contains(testProfileName));
 
-        // TODO add a bundle too?
         FabricSupport.executeCommand("profile-edit --features camel "+ testProfileName);
         response = FabricSupport.executeCommand("profile-display " + testProfileName);
         assertTrue(response.contains("camel"));
@@ -131,7 +129,7 @@ public class FabricTest extends SmokeTestBase {
     }
 
 
-    @Test
+    @Test(timeout = 5 * 60 * 1000)
     public void testProfileAssignModify()  throws Exception {
         String testContainerName = "test-container-" + System.currentTimeMillis();
 

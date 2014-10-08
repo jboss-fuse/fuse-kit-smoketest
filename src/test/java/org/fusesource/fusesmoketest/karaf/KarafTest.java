@@ -64,7 +64,7 @@ public class KarafTest extends SmokeTestBase {
 
 
     @Test(timeout = 30 * 1000)
-    public void testOsgiList() throws Exception {       // TODO rename
+    public void testOsgiList() throws Exception {
         String[] bundleNameStrings = {"Fabric8 :: Karaf Commands", "activemq-karaf", "camel-core", "hawtio :: hawtio-web"};
         List<String> bundleNames = Arrays.asList(bundleNameStrings);
         for (String bundleName : bundleNames) {

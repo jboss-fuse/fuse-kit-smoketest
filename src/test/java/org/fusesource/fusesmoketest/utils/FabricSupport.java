@@ -24,7 +24,7 @@ public class FabricSupport {
     }
 
     /**
-     * TODO This code is based on tests I origninally got from QE.  I'm not sure that the sleeps,
+     * FIXME This code is based on tests I origninally got from QE.  I'm not sure that the sleeps,
      * the disconnect/sshInit, or the waitForProvision are needed.
      *
      * @throws Exception
@@ -33,13 +33,12 @@ public class FabricSupport {
         FabricSupport.sshInit();
 
         FabricSupport.executeCommand("fabric:create  --wait-for-provisioning");
-        Thread.sleep(10000);     // Why is this here?
+        Thread.sleep(10000);
+        disconnect();
 
-        disconnect();              // Why is this here?
         FabricSupport.sshInit();
-
         FabricSupport.waitForProvision("root", true);
-        Thread.sleep(10000);          // Why is this here?
+        Thread.sleep(10000);
     }
 
     public static void shutdownFuse() throws Exception {
