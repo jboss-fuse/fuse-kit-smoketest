@@ -3,7 +3,6 @@ package org.fusesource.fusesmoketest.camel;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.jms.JmsComponent;
-import org.apache.camel.component.jms.JmsConfiguration;
 import org.fusesource.fusesmoketest.SmokeTestBase;
 
 import javax.jms.Connection;

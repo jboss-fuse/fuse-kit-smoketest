@@ -1,11 +1,11 @@
 package org.fusesource.fusesmoketest.karaf;
 
-import com.jcraft.jsch.JSchException;
+import org.fusesource.fusesmoketest.SmokeTestBase;
 import org.fusesource.fusesmoketest.utils.FabricSupport;
-import org.fusesource.fusesmoketest.utils.SSHClient;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
@@ -16,22 +16,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
-public class KarafTest {
+public class KarafTest extends SmokeTestBase {
     protected static final Logger LOG = LoggerFactory.getLogger(KarafTest.class);
     @Rule
     public TestName testName = new TestName();
-    private static final SSHClient sshClient = new SSHClient();
 
     @BeforeClass
     public static void init() throws Exception {
         LOG.info(">>>> Creating fabric in init()");
-        //FabricSupport.createFabric();       // TODO what happens if there already is a fabric?
+        FabricSupport.createFabric();
     }
 
     @Before
     public void setUp() throws Exception {
+        super.setUp();
         LOG.info("Starting test " + testName.getMethodName());
         sshInit();
     }
@@ -39,9 +37,10 @@ public class KarafTest {
     @After
     public void tearDown() throws Exception {
         sshClient.disconnect();
+        super.tearDown();
     }
 
-
+    @Ignore
     @Test(timeout = 30 * 1000)
     public void testBrokerStarted() throws Exception {
         String response = sshClient.executeCommand("activemq:list");
@@ -78,9 +77,8 @@ public class KarafTest {
 
     @Test(timeout = 30 * 1000)
     public void testCommandsExist() throws Exception {
-        String[] commandStrings = {"activemq", "admin", "camel", "config", "cxf", "dev", "esb",
-            "fab", "fabric", "features", "help", "jaas", "log", "osgi", "packages", "patch",
-            "scr", "shell", "ssh"};
+        String[] commandStrings = {"activemq", "camel", "config", "cxf", "dev", "fab", "fabric",
+                "features", "help", "jaas", "log", "osgi", "packages", "patch","scr", "shell", "ssh"};
         List<String> commands = Arrays.asList(commandStrings);
         List<String> failures = new ArrayList<String>();
         String response = sshClient.executeCommand("*:help");
@@ -113,26 +111,4 @@ public class KarafTest {
         assertTrue("Started FUSE should contain 'fabric:create' command, but response was: " + response,
                 response.contains("fabric:create"));
     }
-
-    // FIXME  we have the same thing in FabricSupport, put it in one place
-    private static void sshInit() throws JSchException, InterruptedException {
-        int MAX_ATTEMPTS = 100;
-        int attempt = 0;
-
-        while(attempt < MAX_ATTEMPTS){
-            try{
-                sshClient.init();
-                if(sshClient.isConnected()) {      // TODO is it possible to get here and not be connected?
-                    return;
-                }
-            } catch (JSchException e ){
-                LOG.info("Connect failed with " + e.getMessage() + ", retrying...");
-            }
-
-            Thread.sleep(1000);
-            attempt++;
-        }
-
-    }
-
 }

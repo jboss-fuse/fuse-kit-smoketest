@@ -32,10 +32,7 @@ public class HawtioTest extends SmokeTestBase {
     protected static final Logger LOG = LoggerFactory.getLogger(HawtioTest.class);
     @Rule
     public TestName testName = new TestName();
-
-
     private static final String HAWTIO_LOGIN_URL = "http://localhost:8181/hawtio/login/";
-
     private HttpHost host = null;
     private HttpClientContext localContext = null;
     private AuthCache authCache = null;
@@ -43,6 +40,7 @@ public class HawtioTest extends SmokeTestBase {
 
     @Before
     public void setUp() throws Exception {
+        super.setUp();
         LOG.info("Starting test " + testName.getMethodName());
         sshInit();
     }
@@ -50,12 +48,14 @@ public class HawtioTest extends SmokeTestBase {
     @After
     public void tearDown() throws Exception {
         sshClient.disconnect();
+        super.tearDown();
     }
+
 
     @Test(timeout = 30 * 1000)
     public void testHawtioConsoleLogin() throws IOException, InterruptedException {
-        setUpHttpClient(HAWTIO_LOGIN_URL, "admin", "admin");  // TODO pickup from command line like in AMQ tests
-        HttpResponse response = executePost(httpClient, HAWTIO_LOGIN_URL, "admin", "admin");
+        setUpHttpClient(HAWTIO_LOGIN_URL, FUSE_USER, FUSE_PASSWORD);
+        HttpResponse response = executePost(httpClient, HAWTIO_LOGIN_URL, FUSE_USER, FUSE_PASSWORD);
         StatusLine statusLine = response.getStatusLine();
         assertEquals(200, statusLine.getStatusCode());
         assertEquals("OK", statusLine.getReasonPhrase());

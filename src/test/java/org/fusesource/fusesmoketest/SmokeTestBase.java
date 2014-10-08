@@ -41,9 +41,5 @@ public class SmokeTestBase extends CamelTestSupport {
             Thread.sleep(1000);
             attempt++;
         }
-
     }
-
-
-
 }

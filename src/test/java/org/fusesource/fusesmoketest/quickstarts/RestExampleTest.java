@@ -1,18 +1,14 @@
 package org.fusesource.fusesmoketest.quickstarts;
 
-import org.apache.http.HttpException;
-import org.apache.http.client.HttpClient;
 import org.fusesource.fusesmoketest.quickstarts.utils.TestUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test the rest quickstart.

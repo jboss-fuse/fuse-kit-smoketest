@@ -1,12 +1,10 @@
 package org.fusesource.fusesmoketest.camel;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.fusesource.fusesmoketest.camel.CamelSmokeTestBase;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by kearls on 07/10/14.
@@ -48,7 +46,7 @@ public class ControlBusPatternTest extends CamelSmokeTestBase {
     }
 
 
-    // FIXME how to enable JMX?
+    @Ignore("FIXME need to enable JMX on broker")
     @Test(timeout = 60 * 1000)
     public void statsCommandTest() throws Exception {
         String xml = template.requestBody("controlbus:route?action=stats", null, String.class);

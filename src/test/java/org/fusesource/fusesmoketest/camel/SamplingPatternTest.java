@@ -33,7 +33,7 @@ public class SamplingPatternTest extends CamelSmokeTestBase {
                         .to("jms:sampling1");
 
                 from("direct:sample-messageFrequency")
-                        .sample(3, TimeUnit.SECONDS)
+                        .sample().sampleMessageFrequency(3)
                         .to("jms:queue:sampling2");
             }
         };

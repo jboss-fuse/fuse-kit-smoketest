@@ -1,20 +1,18 @@
 package org.fusesource.fusesmoketest.fabric8;
 
+import org.fusesource.fusesmoketest.SmokeTestBase;
 import org.fusesource.fusesmoketest.utils.FabricSupport;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by kearls on 03/10/14.
  */
-public class FabricTest {
+public class FabricTest extends SmokeTestBase {
     protected static final Logger LOG = LoggerFactory.getLogger(FabricTest.class);
 
     @BeforeClass
@@ -31,19 +29,6 @@ public class FabricTest {
     @After
     public void tearDown() throws Exception {
         FabricSupport.disconnect();
-    }
-
-    @AfterClass
-    public static void done() throws Exception {
-        LOG.info(">>>> Shutting down");
-
-        // FIXME what should I do here?
-
-        //FabricSupport.init();
-        //FabricSupport.shutdownFuse();    // Do we really want to do this?
-        //FabricSupport.disconnect()
-        //
-        // ;
     }
 
     @Test(timeout = 30 * 1000)
@@ -120,7 +105,7 @@ public class FabricTest {
         assertTrue(response.contains("the profile which runs a full JBoss A-MQ distribution and starts the broker on 61616 port"));
     }
 
-    @Test(timeout = 2 * 60 * 1000)
+    @Test(timeout = 200 * 60 * 1000)
     public void testProfileCreateModifyDelete() throws Exception  {
         String testProfileName = "test-profile-" + System.currentTimeMillis();
 

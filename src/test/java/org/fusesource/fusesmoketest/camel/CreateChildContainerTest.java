@@ -1,9 +1,7 @@
 package org.fusesource.fusesmoketest.camel;
 
-import org.apache.camel.test.junit4.CamelTestSupport;
 import org.fusesource.fusesmoketest.SmokeTestBase;
 import org.fusesource.fusesmoketest.utils.FabricSupport;
-import org.fusesource.fusesmoketest.utils.SSHClient;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -14,8 +12,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by kearls on 07/10/14.
  */
-public class CamelTest extends SmokeTestBase {
-    protected static final Logger LOG = LoggerFactory.getLogger(CamelTest.class);
+public class CreateChildContainerTest extends SmokeTestBase {
+    protected static final Logger LOG = LoggerFactory.getLogger(CreateChildContainerTest.class);
     //private static final SSHClient sshClient = new SSHClient();
 
     @BeforeClass

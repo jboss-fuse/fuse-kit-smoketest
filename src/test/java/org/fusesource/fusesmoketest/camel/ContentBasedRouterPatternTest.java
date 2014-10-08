@@ -1,17 +1,7 @@
 package org.fusesource.fusesmoketest.camel;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.jms.JmsComponent;
-import org.fusesource.fusesmoketest.SmokeTestBase;
 import org.junit.Test;
-
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
-import javax.jms.MessageConsumer;
-import javax.jms.TextMessage;
 
 /**
  * Created by kearls on 07/10/14.
