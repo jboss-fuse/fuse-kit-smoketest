@@ -13,6 +13,8 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Created by kearls on 25/08/14.
+ *
+ * FIXME need to do: osgi:install -s mvn:io.fabric8.quickstarts/karaf-beginner-camel-cbr/1.2.0.redhat-041
  */
 public class CbrExampleTest extends FuseSmokeTestBase {
     private static String CBR_SOURCE_DATA_DIRECTORY;
@@ -23,7 +25,7 @@ public class CbrExampleTest extends FuseSmokeTestBase {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         FuseSmokeTestBase.setUpBeforeClass();
-        CBR_SOURCE_DATA_DIRECTORY = FUSE_HOME + "quickstarts/cbr/src/main/resources/data";
+        CBR_SOURCE_DATA_DIRECTORY = FUSE_HOME + "quickstarts/beginner/camel-cbr/src/main/fabric8/data";
         CBR_WORK_INPUT_DIRECTORY = FUSE_HOME + "work/cbr/input";
         CBR_WORK_OUTPUT_DIRECTORY = FUSE_HOME + "work/cbr/output";
 
@@ -61,7 +63,6 @@ public class CbrExampleTest extends FuseSmokeTestBase {
 
         List<String> outputFileNames = TestUtils.listFileNamesInDirectory(CBR_WORK_OUTPUT_DIRECTORY);
         assertEquals("Wrong number of files found", expectedFileNames.size(), outputFileNames.size());
-        //assertThat(outputFileNames, is(expectedFileNames));
         for (String expectedFileName : expectedFileNames) {
             assertTrue("Didn't find file " + expectedFileName, outputFileNames.contains(expectedFileName));
         }

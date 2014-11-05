@@ -24,7 +24,7 @@ public class ErrorsExampleTest extends FuseSmokeTestBase {
     public static void setUpBeforeClass() throws Exception {
         FuseSmokeTestBase.setUpBeforeClass();
 
-        ERRORS_SOURCE_DATA_DIRECTORY = FUSE_HOME + "quickstarts/errors/src/main/resources/data";
+        ERRORS_SOURCE_DATA_DIRECTORY = FUSE_HOME + "quickstarts/beginner/camel-errorhandler/src/main/fabric8/data";
         String ERRORS_WORK_DIRECTORY = FUSE_HOME + "work/errors/";
         ERRORS_WORK_DIRECTORY = ERRORS_WORK_DIRECTORY.replaceAll("\\\\", "/");
         ERRORS_WORK_INPUT_DIRECTORY = ERRORS_WORK_DIRECTORY + "input";

@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 public class SoapExampleTest extends FuseSmokeTestBase {
     private static final Logger LOG = LoggerFactory.getLogger(SoapExampleTest.class);
 
-    @Ignore("https://issues.jboss.org/browse/ENTESB-1833")
+    //@Ignore("https://issues.jboss.org/browse/ENTESB-1833")
     @Test
 	public void testSimple() throws Exception {
 		// Set up a connection to the web service

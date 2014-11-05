@@ -25,7 +25,7 @@ public class EipExampleTest extends FuseSmokeTestBase {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         FuseSmokeTestBase.setUpBeforeClass();
-        EIP_SOURCE_DATA_DIRECTORY = FUSE_HOME + "quickstarts/eip/src/main/resources/data";
+        EIP_SOURCE_DATA_DIRECTORY = FUSE_HOME + "quickstarts/beginner/camel-eips/src/main/fabric8/data";
         EIP_WORK_INPUT_DIRECTORY = FUSE_HOME + "work/eip/input";
         EIP_WORK_OUTPUT_DIRECTORY = FUSE_HOME + "work/eip/output";
         EIP_WORK_OUTPUT_DIRECTORY = EIP_WORK_OUTPUT_DIRECTORY.replaceAll("\\\\", "/");
@@ -39,7 +39,7 @@ public class EipExampleTest extends FuseSmokeTestBase {
     }
 
 
-    @Ignore("https://issues.jboss.org/browse/ENTESB-1831")
+    //@Ignore("https://issues.jboss.org/browse/ENTESB-1831")
     @Test
     /**
      * This test verifies whether the FUSE quickstarts/eip example works correctly.
@@ -55,7 +55,11 @@ public class EipExampleTest extends FuseSmokeTestBase {
         } catch (InterruptedException e) {
         }
 
+        System.out.println(">>>> Looking for output in " + EIP_WORK_OUTPUT_DIRECTORY);
         List<String> outputFileNames = TestUtils.listFileNamesInDirectory(EIP_WORK_OUTPUT_DIRECTORY);
+        for (String name : outputFileNames) {
+            System.out.println("\tGot " + name);
+        }
 
         assertEquals(expectedFileNames.size(), outputFileNames.size());
         if (!outputFileNames.containsAll(expectedFileNames)) {
