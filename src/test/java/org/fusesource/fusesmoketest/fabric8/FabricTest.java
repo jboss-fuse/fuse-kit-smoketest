@@ -1,7 +1,6 @@
 package org.fusesource.fusesmoketest.fabric8;
 
 import org.fusesource.fusesmoketest.SmokeTestBase;
-//import org.fusesource.fusesmoketest.utils.FabricSupport;
 import org.fusesource.fusesmoketest.utils.FabricSupport;
 import org.junit.After;
 import org.junit.Before;
@@ -10,9 +9,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Created by kearls on 03/10/14.
- */
 public class FabricTest extends SmokeTestBase {
     protected static final Logger LOG = LoggerFactory.getLogger(FabricTest.class);
 
@@ -34,7 +30,6 @@ public class FabricTest extends SmokeTestBase {
 
     @Test(timeout = 30 * 1000)
     public void cryptoAlgorithmCommandTest() throws Exception {
-        //FabricSupport.createFabric();
         String defaultCryptoAlgorithmName = "PBEWithMD5AndDES";
         String newCryptoAlgorithmName = "SHA-1";
         String response = FabricSupport.executeCommand("fabric:crypt-algorithm-get ");
@@ -73,7 +68,7 @@ public class FabricTest extends SmokeTestBase {
 
     @Test(timeout = 5 * 60 * 1000)
     public void createAndDeleteContainer() throws Exception {
-        String newContainerName="newtestcontainer";
+        String newContainerName="newtestcontainer" + System.currentTimeMillis();
         String response= FabricSupport.executeCommand("container-list");
         LOG.info(">>>> Response from first list " + response);
         System.out.println(response);
