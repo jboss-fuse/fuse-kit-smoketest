@@ -14,6 +14,7 @@ import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultRedirectStrategy;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.fusesource.fusesmoketest.SmokeTestBase;
@@ -32,7 +33,7 @@ public class HawtioTest extends SmokeTestBase {
     protected static final Logger LOG = LoggerFactory.getLogger(HawtioTest.class);
     @Rule
     public TestName testName = new TestName();
-    private static final String HAWTIO_LOGIN_URL = "http://localhost:8181/hawtio/login/";
+    private static final String HAWTIO_LOGIN_URL = "http://localhost:8181/hawtio/";
     private HttpHost host = null;
     private HttpClientContext localContext = null;
     private AuthCache authCache = null;
@@ -75,6 +76,7 @@ public class HawtioTest extends SmokeTestBase {
         authCache.put(host, basicScheme);
         HttpClientBuilder clientBuilder = HttpClients.custom();
         clientBuilder.setDefaultCredentialsProvider(credentialProvider);
+        clientBuilder.setRedirectStrategy(new FollowRedirectStrategy());
         httpClient = clientBuilder.build();
 
         return httpClient;
@@ -90,5 +92,13 @@ public class HawtioTest extends SmokeTestBase {
 
         HttpResponse response = httpClient.execute(host, httpPost, localContext);
         return response;
+    }
+
+    public class FollowRedirectStrategy extends DefaultRedirectStrategy {
+        @Override
+        protected boolean isRedirectable(String method) {
+            System.out.println(">>>> FollowRedirectStrategy.isRedirectable() called on method: " + method);
+            return true;
+        }
     }
 }
