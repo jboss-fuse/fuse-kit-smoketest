@@ -15,6 +15,8 @@ ${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickst
 ${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-log/${VERSION}"
 ${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-log-wiki/${VERSION}"
 
+${FUSE_HOME}/bin/client -u admin -p admin "features:install cxf"
+
 ${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-code-first/${VERSION}"
 #####${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-contract-first/${VERSION}"
 ${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-rest/${VERSION}"
