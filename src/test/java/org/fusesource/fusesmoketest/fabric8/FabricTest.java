@@ -131,13 +131,13 @@ public class FabricTest extends SmokeTestBase {
         String testProfileName = "test-profile-" + System.currentTimeMillis();
 
         FabricSupport.createChildContainer(testContainerName,"",true);
-        FabricSupport.waitForProvision(testContainerName,true);
+        //FabricSupport.waitForProvision(testContainerName,true);
 
         FabricSupport.executeCommand("profile-create "+ testProfileName);
         FabricSupport.executeCommand("container-add-profile "+ testContainerName + " " + testProfileName);
         FabricSupport.executeCommand("profile-edit --features fabric-zookeeper-commands " + testProfileName);
 
-        FabricSupport.waitForProvision(testContainerName,true);      /// WTF?
+        //FabricSupport.waitForProvision(testContainerName,true);      /// WTF?
 
         String zk= FabricSupport.executeCommand("container-connect " + testContainerName + " zk:list");
         assertTrue("does not contains fabric", zk.contains("fabric"));

@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class FabricSupport {
     public static boolean PATCH = false;
     private static SSHClient sshClient = new SSHClient();
-    private static Logger LOG = LoggerFactory.getLogger(FabricSupport.class.getName());
+    private static Logger LOG = LoggerFactory.getLogger(FabricSupport.class);
     public static String DEFAULT_VERSION = "1.0";
 
     public static boolean init() throws Exception {
@@ -33,12 +33,12 @@ public class FabricSupport {
         FabricSupport.sshInit();
 
         FabricSupport.executeCommand("fabric:create  --wait-for-provisioning");
-        Thread.sleep(10000);
+        //Thread.sleep(10000);
         disconnect();
-
+/*
         FabricSupport.sshInit();
         FabricSupport.waitForProvision("root", true);
-        Thread.sleep(10000);
+        Thread.sleep(10000);*/
     }
 
     public static void shutdownFuse() throws Exception {
@@ -50,8 +50,10 @@ public class FabricSupport {
     }
 
     public static boolean waitForProvision(String containerName, boolean checkFalse) throws Exception {
+        int limit = 10;
+        int iterations = 0;
         boolean done = false;
-        while (!done) {
+        while (!done && (iterations < limit)) {
             String wtf = sshClient.executeCommand("fabric:container-list");
             System.out.println("WTF: " + wtf);
             LOG.error(">>>>>> WTF " + wtf);
@@ -64,7 +66,9 @@ public class FabricSupport {
                 done = true;
             } else {
                 Thread.sleep(1000);
+                System.out.printf(">>>> End of iteration " + iterations);
             }
+            iterations++;
         }
 
         return done;
