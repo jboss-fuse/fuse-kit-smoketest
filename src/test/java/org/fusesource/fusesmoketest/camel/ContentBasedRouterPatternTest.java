@@ -1,6 +1,7 @@
 package org.fusesource.fusesmoketest.camel;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -29,6 +30,7 @@ public class ContentBasedRouterPatternTest extends CamelSmokeTestBase {
         };
     }
 
+    @Ignore
     @Test(timeout = 60 * 1000)
     public void contentBasedRouterTest() throws Exception {
         template.sendBodyAndHeader("direct:messageRouter", "Hello1", "foo", "bar");

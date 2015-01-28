@@ -39,6 +39,7 @@ public class SamplingPatternTest extends CamelSmokeTestBase {
         };
     }
 
+    @Ignore
     @Test(timeout = 30 * 1000)
     public void samplingMessageFrequencyTest() throws Exception {
         template.sendBody("direct:sample-messageFrequency", "test1");
@@ -62,6 +63,8 @@ public class SamplingPatternTest extends CamelSmokeTestBase {
         assertNull(message3);
     }
 
+
+    @Ignore
     @Test(timeout = 30 * 1000)
     public void samplingPeriodTest() throws Exception {
         template.sendBody("direct:sample", "test1");
