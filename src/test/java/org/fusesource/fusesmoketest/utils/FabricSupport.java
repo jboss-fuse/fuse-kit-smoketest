@@ -24,7 +24,7 @@ public class FabricSupport {
     }
 
     /**
-     * FIXME This code is based on tests I origninally got from QE.  I'm not sure that the sleeps,
+     * FIXME This code is based on tests I originally got from QE.  I'm not sure that the sleeps,
      * the disconnect/sshInit, or the waitForProvision are needed.
      *
      * @throws Exception
@@ -52,8 +52,11 @@ public class FabricSupport {
     public static boolean waitForProvision(String containerName, boolean checkFalse) throws Exception {
         boolean done = false;
         while (!done) {
+            String wtf = sshClient.executeCommand("fabric:container-list");
+            System.out.println("WTF: " + wtf);
+            LOG.error(">>>>>> WTF " + wtf);
             String response = sshClient.executeCommand("fabric:container-list | grep " + containerName);
-            LOG.info(response);
+            LOG.info(">>>>> response "  + response);
             if (response.contains("error") && (checkFalse)) {
                 return false;
             }
