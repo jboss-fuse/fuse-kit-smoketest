@@ -33,12 +33,12 @@ public class FabricSupport {
         FabricSupport.sshInit();
 
         FabricSupport.executeCommand("fabric:create  --wait-for-provisioning");
-        //Thread.sleep(10000);
+        Thread.sleep(10000);
         disconnect();
-/*
+
         FabricSupport.sshInit();
         FabricSupport.waitForProvision("root", true);
-        Thread.sleep(10000);*/
+        Thread.sleep(10000);
     }
 
     public static void shutdownFuse() throws Exception {
@@ -50,25 +50,25 @@ public class FabricSupport {
     }
 
     public static boolean waitForProvision(String containerName, boolean checkFalse) throws Exception {
-        int limit = 10;
-        int iterations = 0;
+        int limit = 120;
+        int iteration = 1;
         boolean done = false;
-        while (!done && (iterations < limit)) {
-            String wtf = sshClient.executeCommand("fabric:container-list");
-            System.out.println("WTF: " + wtf);
-            LOG.error(">>>>>> WTF " + wtf);
-            String response = sshClient.executeCommand("fabric:container-list | grep " + containerName);
-            LOG.info(">>>>> response "  + response);
-            if (response.contains("error") && (checkFalse)) {
+        while (!done && (iteration < limit)) {
+            String response = sshClient.executeCommand("fabric:container-list " + containerName);
+            String info = sshClient.executeCommand("fabric:container-info " + containerName );
+            int provisionStatusLocation = info.indexOf("Provision Status:");
+            String provisionStatus = info.substring(provisionStatusLocation + "Provision Status:".length()).trim();
+            LOG.info(">>>>> In waitForProvisioning status: [{}]", provisionStatus); // TODO check provision status rather than response in the loop below?
+            if ((response.contains("error") || response.contains("failed")) && (checkFalse)) {
                 return false;
             }
             if (response.contains("success")) {
                 done = true;
             } else {
                 Thread.sleep(1000);
-                System.out.printf(">>>> End of iteration " + iterations);
+                LOG.info(">>>> End of iteration {}", iteration);
             }
-            iterations++;
+            iteration++;
         }
 
         return done;
@@ -78,6 +78,13 @@ public class FabricSupport {
         return sshClient.executeCommand(c);
     }
 
+    /**
+     * FIXME why are there two of these?
+     * @param name
+     * @param profile
+     * @param checkError
+     * @throws Exception
+     */
     public static void createChildContainer(String name, String profile, boolean checkError) throws Exception {
         String state = "";
         if (profile.equals("")) {
@@ -85,7 +92,7 @@ public class FabricSupport {
         } else {
             state = executeCommand("container-create-child --profile " + profile + " root " + name);
         }
-        System.out.println(">>>>> Response from create-child: " + state);
+        LOG.info(">>>>> Response from create-child: " + state);
         if (!state.toLowerCase().contains("error")) {
             FabricSupport.waitForProvision(name, checkError);
         } else {
@@ -105,8 +112,6 @@ public class FabricSupport {
             executeCommand("container-create-child " + profiles + " root " + name);
         }
         FabricSupport.waitForProvision(name, checkError);
-
-
         if (PATCH) {
             FabricSupport.waitForProvision(name, checkError);
         }

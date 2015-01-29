@@ -71,19 +71,20 @@ public class FabricTest extends SmokeTestBase {
         String newContainerName="newtestcontainer" + System.currentTimeMillis();
         String response= FabricSupport.executeCommand("container-list");
         LOG.info(">>>> Response from first list " + response);
-        System.out.println(response);
 
         assertFalse(response.contains(newContainerName));
         FabricSupport.createChildContainer(newContainerName);
-        response=FabricSupport.executeCommand("container-list | grep "+newContainerName);
-        LOG.info(">>>> Response after create " + response);
+        response=FabricSupport.executeCommand("container-list " + newContainerName);
+        LOG.info(">>>> Response after create [{}]",response);
+        String response2=FabricSupport.executeCommand("container-info " + newContainerName);
+        LOG.info(">>>> Response after create-2 [{}]", response2);
 
         assertTrue(response.contains(newContainerName));
         assertTrue(response.contains("success"));
 
-        response=FabricSupport.executeCommand("container-delete "+newContainerName);
+        response=FabricSupport.executeCommand("container-delete " + newContainerName);
         LOG.info(">>>> Response from delete " + response);
-        response=FabricSupport.executeCommand("container-list | grep "+newContainerName);
+        response=FabricSupport.executeCommand("container-list  " + newContainerName);
         LOG.info(">>>> Response after delete " + response);
 
         assertFalse(response.contains(newContainerName));
@@ -131,16 +132,20 @@ public class FabricTest extends SmokeTestBase {
         String testProfileName = "test-profile-" + System.currentTimeMillis();
 
         FabricSupport.createChildContainer(testContainerName,"",true);
-        //FabricSupport.waitForProvision(testContainerName,true);
+        FabricSupport.waitForProvision(testContainerName,true);
 
         FabricSupport.executeCommand("profile-create "+ testProfileName);
         FabricSupport.executeCommand("container-add-profile "+ testContainerName + " " + testProfileName);
         FabricSupport.executeCommand("profile-edit --features fabric-zookeeper-commands " + testProfileName);
 
-        //FabricSupport.waitForProvision(testContainerName,true);      /// WTF?
+        FabricSupport.waitForProvision(testContainerName,true);
+
+        Thread.sleep(5000);
 
         String zk= FabricSupport.executeCommand("container-connect " + testContainerName + " zk:list");
-        assertTrue("does not contains fabric", zk.contains("fabric"));
+        LOG.info(">>>>> ContainerName? [{}]", testContainerName);
+        LOG.info(">>>>> ZK [{}]", zk);
+        assertTrue("[" + zk + "] does not contains fabric", zk.contains("fabric"));
         assertTrue("does not contains zookeeper", zk.contains("zookeeper"));
 
         FabricSupport.executeCommand("container-delete " + testContainerName);
