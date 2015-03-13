@@ -4,17 +4,24 @@ import org.fusesource.fusesmoketest.quickstarts.utils.TestUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
-import java.util.List;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import static java.nio.file.FileVisitResult.*;
 
 /**
  * Created by kearls on 25/08/14.
  */
 public class ErrorsExampleTest extends FuseSmokeTestBase {
     private static String ERRORS_SOURCE_DATA_DIRECTORY;
+    private static String ERRORS_WORK_DIRECTORY;
     private static String ERRORS_WORK_INPUT_DIRECTORY;
     private static String errorsValidationDirectory = FUSE_HOME + "/work/errors/validation";
     private static String deadLetterDirectory = FUSE_HOME + "/work/errors/deadletter";
@@ -25,7 +32,7 @@ public class ErrorsExampleTest extends FuseSmokeTestBase {
         FuseSmokeTestBase.setUpBeforeClass();
 
         ERRORS_SOURCE_DATA_DIRECTORY = FUSE_HOME + "quickstarts/beginner/camel-errorhandler/src/main/fabric8/data";
-        String ERRORS_WORK_DIRECTORY = FUSE_HOME + "work/errors/";
+        ERRORS_WORK_DIRECTORY = FUSE_HOME + "work/errors/";
         ERRORS_WORK_DIRECTORY = ERRORS_WORK_DIRECTORY.replaceAll("\\\\", "/");
         ERRORS_WORK_INPUT_DIRECTORY = ERRORS_WORK_DIRECTORY + "input";
         errorsValidationDirectory = ERRORS_WORK_DIRECTORY + "validation";
@@ -36,25 +43,27 @@ public class ErrorsExampleTest extends FuseSmokeTestBase {
         TestUtils.cleanUpDirectories(errorsValidationDirectory, deadLetterDirectory, doneDirectory);
     }
 
-    @Test
+    @Test(timeout = 120 * 1000)
     /**
      * This test verifies whether the ESB quickstarts/errors test works correctly.  I
      *
      * @throws java.io.IOException
      */
-    public void test() throws IOException {
-        // TODO is there someway to verify that this quickstart is installed?
-        // Copy the test files to the work directory, and wait a couple of seconds for them to get there
+    public void test() throws Exception {
+        // Copy the 5 test files to the work input directory
         TestUtils.copyDirectory(ERRORS_SOURCE_DATA_DIRECTORY, ERRORS_WORK_INPUT_DIRECTORY);
-        // TODO is there a better way to do this?
-        try {Thread.sleep(15 * 1000); } catch (InterruptedException e) {}
+
+        // Wait for the processed files to show up
+        File errorsWorkDirectory = new File(ERRORS_WORK_DIRECTORY);
+        waitForFileCopy(errorsWorkDirectory.toPath(), 5, 60);
 
         // order4.xml will always end up in the validation directory
         List<String> outputFileNames = TestUtils.listFileNamesInDirectory(errorsValidationDirectory);
+
         assertEquals(1, outputFileNames.size());
         assertTrue(outputFileNames.contains(errorsValidationDirectory + "/order4.xml"));
 
-        // ** other files will end up in `work/errors/done` or `work/errors/deadletter` depending on the runtime exceptions that occur
+        // The 4 files will end up either in `work/errors/done` or `work/errors/deadletter` depending on the runtime exceptions that occur
         List<String> deadLetterFileNames = TestUtils.listFileNamesInDirectory(deadLetterDirectory);
         List<String> doneFileNames = TestUtils.listFileNamesInDirectory(doneDirectory);
 
@@ -64,6 +73,6 @@ public class ErrorsExampleTest extends FuseSmokeTestBase {
         assertTrue(doneFileNames.contains(doneDirectory + "/order3.xml") || deadLetterFileNames.contains(deadLetterDirectory + "/order3.xml"));
         assertTrue(doneFileNames.contains(doneDirectory + "/order5.xml") || deadLetterFileNames.contains(deadLetterDirectory + "/order5.xml"));
     }
-
-
 }
+
+
