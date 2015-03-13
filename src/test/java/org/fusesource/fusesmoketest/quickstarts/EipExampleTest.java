@@ -39,7 +39,6 @@ public class EipExampleTest extends FuseSmokeTestBase {
     }
 
 
-    @Ignore("https://issues.jboss.org/browse/ENTESB-1831")
     @Test
     /**
      * This test verifies whether the FUSE quickstarts/eip example works correctly.
