@@ -109,7 +109,7 @@
                         <version>${surefire.version}</version>
                         <configuration>
                             <excludes>
-                                <exclude>**/quickstarts/*.*</exclude>
+                                <exclude>**/quickstarts/*/*.*</exclude>
                             </excludes>
                         </configuration>
                     </plugin>
@@ -126,7 +126,7 @@
                         <version>${surefire.version}</version>
                         <configuration>
                             <includes>
-                                <include>**/quickstarts/*.*</include>
+                                <include>**/quickstarts/*/*.*</include>
                             </includes>
                         </configuration>
                     </plugin>

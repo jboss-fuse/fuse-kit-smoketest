@@ -54,8 +54,8 @@ public class CreateChildContainerTest extends SmokeTestBase {
 
         response = FabricSupport.executeCommandOnChild(childContainerName, "camel:route-info route1");
         LOG.info(">>>>Response 2 [" + response.toString() + "]");
-        assertTrue(response.contains("Inflight Exchanges:"));
-        assertTrue(response.contains("Fabric Camel Example:"));
+        assertTrue(response.contains("Exchanges Inflight:"));
+        assertTrue(response.contains("fabric-camel-demo"));
 
         response = sshClient.executeCommand("container-delete " + childContainerName);
         LOG.info(">>>>Response 4 " + response);

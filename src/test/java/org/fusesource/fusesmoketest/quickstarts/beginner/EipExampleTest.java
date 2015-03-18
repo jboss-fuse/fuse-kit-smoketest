@@ -1,5 +1,6 @@
-package org.fusesource.fusesmoketest.quickstarts;
+package org.fusesource.fusesmoketest.quickstarts.beginner;
 
+import org.fusesource.fusesmoketest.quickstarts.FuseSmokeTestBase;
 import org.fusesource.fusesmoketest.quickstarts.utils.TestUtils;
 import org.junit.BeforeClass;
 import org.junit.Ignore;

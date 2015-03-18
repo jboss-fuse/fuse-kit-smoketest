@@ -112,11 +112,11 @@ public class FabricTest extends SmokeTestBase {
         response = FabricSupport.executeCommand("profile-list | grep " + testProfileName);
         assertTrue(response.contains(testProfileName));
 
-        FabricSupport.executeCommand("profile-edit --features camel "+ testProfileName);
+        FabricSupport.executeCommand("profile-edit --feature camel "+ testProfileName);
         response = FabricSupport.executeCommand("profile-display " + testProfileName);
         assertTrue(response.contains("camel"));
 
-        FabricSupport.executeCommand("profile-edit --delete --features camel " + testProfileName);
+        FabricSupport.executeCommand("profile-edit --delete --feature camel " + testProfileName);
         response = FabricSupport.executeCommand("profile-display " + testProfileName);
         assertFalse(response.contains("camel"));
 
@@ -136,7 +136,7 @@ public class FabricTest extends SmokeTestBase {
 
         FabricSupport.executeCommand("profile-create "+ testProfileName);
         FabricSupport.executeCommand("container-add-profile "+ testContainerName + " " + testProfileName);
-        FabricSupport.executeCommand("profile-edit --features fabric-zookeeper-commands " + testProfileName);
+        FabricSupport.executeCommand("profile-edit --feature fabric-zookeeper-commands " + testProfileName);
 
         FabricSupport.waitForProvision(testContainerName,true);
 

@@ -1,6 +1,6 @@
-package org.fusesource.fusesmoketest.quickstarts;
+package org.fusesource.fusesmoketest.quickstarts.cxf;
 
-import org.junit.Ignore;
+import org.fusesource.fusesmoketest.quickstarts.FuseSmokeTestBase;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
