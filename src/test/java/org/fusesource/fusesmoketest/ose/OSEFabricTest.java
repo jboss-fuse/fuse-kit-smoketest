@@ -58,7 +58,7 @@ public class OSEFabricTest extends OSESmokeTestBase {
         sshClient.executeCommand("fabric:crypt-password-set " + defaultPassword);
     }
 
-    @Test(timeout = 5 * 60 * 1000)
+    @Test(timeout = 2 * 60 * 1000)
     public void createAndDeleteContainer() throws Exception {
         String newContainerName="newtestcontainer" + System.currentTimeMillis();
         String response= sshClient.executeCommand("container-list");
@@ -117,7 +117,7 @@ public class OSEFabricTest extends OSESmokeTestBase {
     }
 
     @Ignore("FIXME")
-    @Test(timeout = 5 * 60 * 1000)
+    @Test(timeout =1 *60 * 1000)
     public void testProfileAssignModify()  throws Exception {
         String testContainerName = "test-container-" + System.currentTimeMillis();
 
