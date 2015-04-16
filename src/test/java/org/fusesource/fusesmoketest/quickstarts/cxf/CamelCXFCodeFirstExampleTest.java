@@ -1,6 +1,7 @@
 package org.fusesource.fusesmoketest.quickstarts.cxf;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +44,8 @@ public class CamelCXFCodeFirstExampleTest {
         return bos.toString();
     }
 
-    @Test
+    @Ignore
+    @Test(timeout = 60 * 1000)
     public void sendRequest() throws Exception {
 
         String res;
