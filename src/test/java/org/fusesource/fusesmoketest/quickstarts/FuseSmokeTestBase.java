@@ -20,7 +20,10 @@ public abstract class FuseSmokeTestBase {
     public static void setUpBeforeClass() throws Exception {
         FUSE_HOME = System.getProperty("FUSE_HOME");
         if (FUSE_HOME == null || FUSE_HOME.trim().equals("")) {
-            throw new Exception("FUSE_HOME must be set.");
+            FUSE_HOME = System.getenv("FUSE_HOME");
+            if (FUSE_HOME == null || FUSE_HOME.trim().equals("")) {
+                throw new Exception("FUSE_HOME must be set.");
+            }
         }
 
         if (!FUSE_HOME.endsWith("/") && !FUSE_HOME.endsWith("\\")) {

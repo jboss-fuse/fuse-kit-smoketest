@@ -5,14 +5,15 @@ These tests are intended to be run as part of a Fuse kit smoke test.
  
 To run the quickstart tests, do the following:
 
-1. cd to ${FUSE_INSTALLATION}/quickstarts and build all of the quickstarts
-2. Run fuse
-3. Run the deployQuickStarts.sh script to deploy the quickstarts
-4. Run the tests with the following command; FUSE_HOME must be set
+0. Set FUSE_HOME to the full path of the Fuse installation, i.e. export FUSE_HOME=/Users/kearls/fuse/jboss-fuse-6.2.0.redhat-016/
+1. Run the fixCXFCodeFirstExample.sh
+2. cd to ${FUSE_HOME}/quickstarts and build all of the quickstarts
+3. In another shell, Run fuse
+4. Run the deployQuickStarts.sh script to deploy the quickstarts
+5. Run the quickstart tests with the following command; FUSE_HOME must be set
 
-    mvn -DFUSE_HOME=/Users/kearls/fuse/jboss-fuse-6.2.0.redhat-016/ -P quickstarts clean install
+    mvn -DFUSE_HOME=${FUSE_HOME} -Pquickstarts clean install
     
-
 To run the other (non-quickstarts, non-ose) tests
 
 1. Run fuse, and create a fabric.  (TODO check, is this necessary?)
