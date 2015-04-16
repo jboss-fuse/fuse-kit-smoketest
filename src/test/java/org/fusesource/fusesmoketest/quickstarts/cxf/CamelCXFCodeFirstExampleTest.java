@@ -44,7 +44,6 @@ public class CamelCXFCodeFirstExampleTest {
         return bos.toString();
     }
 
-    @Ignore
     @Test(timeout = 60 * 1000)
     public void sendRequest() throws Exception {
 
