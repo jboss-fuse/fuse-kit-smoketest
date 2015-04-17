@@ -7,24 +7,31 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by openshift on 4/14/15.
  */
 public class SimpleOSETest extends OSESmokeTestBase {
-    // ssh -p 42777 admin@fud-mynamespace.openshift.example.com
 
+    @Rule
+    public TestName testName = new TestName();
     @Test
     public void testCreateOpenshiftContainer() throws Exception {
-        sshInit();
-        String profileList = sshClient.executeCommand("profile-list");
-        System.out.println("result: " + profileList);
-
+        //sshInit();
         String containerName = "test" + System.currentTimeMillis();
 
         String result = createOpenshiftContainer(OSE_USERNAME, OSE_PASSWORD, "quickstarts-cxf-rest", containerName);
         System.out.println(result);
 
-        sshClient.disconnect();
+        System.out.println("-------------------------------------------------------------------");
+        String deleteResults = sshClient.executeCommand("container-delete " + containerName);
+        System.out.println(deleteResults);
+
+        //sshClient.disconnect();
     }
 
     @Test
@@ -37,7 +44,10 @@ public class SimpleOSETest extends OSESmokeTestBase {
         sshClient.disconnect();
     }
 
-    @Rule
-    public TestName testName = new TestName();
+    @Test
+    public void testCommandLine() throws Exception {
+        System.out.println(executeShellCommand("rhc apps"));
+        System.out.println(executeShellCommand("sudo ls -ltr /var/lib/openshift/"));
+    }
 
 }
