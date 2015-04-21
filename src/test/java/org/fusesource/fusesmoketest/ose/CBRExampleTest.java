@@ -74,7 +74,7 @@ public class CBRExampleTest extends OSESmokeTestBase {
 
         // TODO did they get copied?  wait, then ls -alF?
         String quickStartWorkOutputDirectory = "/var/lib/openshift/" + uuid + "/fuse/container/work/cbr/output/";
-        List<String> blah = executeShellCommand("sudo ls -l " + quickStartWorkOutputDirectory + "us");
+        List<String> blah = executeShellCommand("sudo ls -l " + quickStartWorkOutputDirectory + "us/");
         System.out.println("???? US" + blah.size() + " " + blah);
 /*
         System.out.println("-------------------------------------------------------------------");

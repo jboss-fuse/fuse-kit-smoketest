@@ -3,6 +3,7 @@ package org.fusesource.fusesmoketest.ose;
 import com.jcraft.jsch.JSchException;
 import org.fusesource.fusesmoketest.SmokeTestBase;
 import org.fusesource.fusesmoketest.utils.SSHClient;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
@@ -19,9 +20,11 @@ public class SimpleOSETest extends OSESmokeTestBase {
 
     @Rule
     public TestName testName = new TestName();
+
+    @Ignore("Remove this eventually...")
     @Test
     public void testCreateOpenshiftContainer() throws Exception {
-        //sshInit();
+        sshInit();
         String containerName = "test" + System.currentTimeMillis();
 
         String result = createOpenshiftContainer(OSE_USERNAME, OSE_PASSWORD, "quickstarts-cxf-rest", containerName);
@@ -31,7 +34,7 @@ public class SimpleOSETest extends OSESmokeTestBase {
         String deleteResults = sshClient.executeCommand("container-delete " + containerName);
         System.out.println(deleteResults);
 
-        //sshClient.disconnect();
+        sshClient.disconnect();
     }
 
     @Test

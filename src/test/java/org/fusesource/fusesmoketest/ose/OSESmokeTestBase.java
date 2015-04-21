@@ -4,6 +4,7 @@ import com.jcraft.jsch.JSchException;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.fusesource.fusesmoketest.utils.SSHClient;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
@@ -82,6 +83,8 @@ public class OSESmokeTestBase {
         return result;
     }
 
+    // FIXME Remove this
+    @Ignore
     @Test
     public void removeMe() throws  Exception {
         String uuid = getOpenShiftGearUuid("fud");

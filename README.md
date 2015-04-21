@@ -25,7 +25,7 @@ To run the OSE tests
 
 TODO this requires much more information
 
-    mvn -Pose -DOSE_USERNAME=demo OSE_PASSWORD=openshift -DOSE_PORT=42777 -DOSE_HOSTNAME=fud-mynamespace.openshift.example.com \
-        FUSE_USER=admin FUSE_PASSWORD=jbXPmnSeYhDu clean install
+    mvn -Pose -DOSE_USERNAME=demo -DOSE_PASSWORD=openshift -DOSE_PORT=42777 -DOSE_HOSTNAME=fud-mynamespace.openshift.example.com \
+        -DFUSE_USER=admin FUSE_PASSWORD=jbXPmnSeYhDu clean install
     
     
