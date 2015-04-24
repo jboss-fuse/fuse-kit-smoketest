@@ -17,7 +17,7 @@ sudo oo-admin-ctl-cartridge --command list
 #
 # Create the smoketest app
 # 
-rhc app-create ${APP_NAME} fuse-6.2.0 --namespace ${SMOKETESTNAMESPACE}ls
+rhc app-create ${APP_NAME} fuse-6.2.0 --namespace ${SMOKETESTNAMESPACE}
 rhc apps
 rhc show-app ${APP_NAME}
 
