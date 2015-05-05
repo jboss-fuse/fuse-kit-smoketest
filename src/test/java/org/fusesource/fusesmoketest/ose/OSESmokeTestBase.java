@@ -62,6 +62,16 @@ public class OSESmokeTestBase {
         }
     }
 
+    /**
+     * TODO add wait-for-provisioning when creating containers
+     *
+     * @param oseUser
+     * @param osePassword
+     * @param profileName
+     * @param containerName
+     * @return
+     * @throws Exception
+     */
     public String createOpenshiftContainer(String oseUser, String osePassword,
                                            String profileName, String containerName) throws Exception {
         StringBuilder command = new StringBuilder();

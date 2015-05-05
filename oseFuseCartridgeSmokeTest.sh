@@ -1,6 +1,4 @@
 #
-# TODO check parameters
-#
 export OSE_RPM=$1
 export APP_NAME=smoketestapp
 export SMOKETESTNAMESPACE=smokenamespace
