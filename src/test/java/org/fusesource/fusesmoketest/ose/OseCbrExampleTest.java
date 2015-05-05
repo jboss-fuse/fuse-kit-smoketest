@@ -6,16 +6,14 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
 import java.util.List;
 
-import static  org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by openshift on 4/17/15.
  */
 public class OseCbrExampleTest extends OSESmokeTestBase {
-
     protected static final Logger LOG = LoggerFactory.getLogger(OseCbrExampleTest.class);
 
     @Before

@@ -30,7 +30,6 @@ public class OSEHawtioTest extends OSESmokeTestBase {
     @Rule
     public TestName testName = new TestName();
     private static final String HAWTIO_LOGIN_URL ="http://" + OSE_HOSTNAME + "/hawtio/";
-    //= "http://localhost:8181/hawtio/";
     private HttpHost host = null;
     private HttpClientContext localContext = null;
     private AuthCache authCache = null;
@@ -91,7 +90,6 @@ public class OSEHawtioTest extends OSESmokeTestBase {
     public class FollowRedirectStrategy extends DefaultRedirectStrategy {
         @Override
         protected boolean isRedirectable(String method) {
-            //System.out.println(">>>> FollowRedirectStrategy.isRedirectable() called on method: " + method);
             return true;
         }
     }

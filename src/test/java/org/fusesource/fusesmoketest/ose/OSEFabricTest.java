@@ -1,8 +1,9 @@
 package org.fusesource.fusesmoketest.ose;
 
-import org.fusesource.fusesmoketest.SmokeTestBase;
-import org.fusesource.fusesmoketest.utils.FabricSupport;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -120,7 +121,6 @@ public class OSEFabricTest extends OSESmokeTestBase {
     @Test(timeout =1 *60 * 1000)
     public void testProfileAssignModify()  throws Exception {
         String testContainerName = "test-container-" + System.currentTimeMillis();
-
         String testProfileName = "test-profile-" + System.currentTimeMillis();
 
        // sshClient.createChildContainer(testContainerName,"",true);

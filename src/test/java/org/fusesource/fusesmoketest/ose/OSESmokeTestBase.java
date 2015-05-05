@@ -1,12 +1,9 @@
 package org.fusesource.fusesmoketest.ose;
 
 import com.jcraft.jsch.JSchException;
-import org.apache.camel.test.junit4.CamelTestSupport;
 import org.fusesource.fusesmoketest.utils.SSHClient;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.rules.TestName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,23 +88,6 @@ public class OSESmokeTestBase {
         String result = sshClient.executeCommand(command.toString());
 
         return result;
-    }
-
-    // FIXME Remove this
-    @Ignore
-    @Test
-    public void removeMe() throws  Exception {
-        String uuid = getOpenShiftGearUuid("fud");
-        String password = findFusePasswordForGear(uuid);
-
-        String quickstartDataDirectory = "/var/lib/openshift/" + uuid
-                + "/fuse/container/quickstarts/beginner/camel-cbr/src/main/fabric8/data/";
-        String quickStartWorkDirectory = "/tmp/eatme/";
-
-        for (int i=1; i <=5; i++) {
-            String command = "sudo cp " + quickstartDataDirectory + "order" + i + ".xml " + quickStartWorkDirectory;
-            executeShellCommand(command);
-        }
     }
 
     /**
