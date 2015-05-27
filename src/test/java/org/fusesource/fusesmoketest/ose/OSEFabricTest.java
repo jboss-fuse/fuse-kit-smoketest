@@ -67,6 +67,7 @@ public class OSEFabricTest extends OSESmokeTestBase {
 
         assertFalse(response.contains(newContainerName));
         createOpenshiftContainer(OSE_USERNAME, OSE_PASSWORD, null, newContainerName);
+        waitTillProvisioned(newContainerName);
         response=sshClient.executeCommand("container-list " + newContainerName);
         LOG.info(">>>> Response from container-list [{}]",response);
         String response2=sshClient.executeCommand("container-info " + newContainerName);

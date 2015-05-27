@@ -40,6 +40,7 @@ public class OseCbrExampleTest extends OSESmokeTestBase {
 
         String result = createOpenshiftContainer(OSE_USERNAME, OSE_PASSWORD, "quickstarts-beginner-camel.cbr", testContainerName);
         LOG.info("CreateOpenshiftContainer Result: " + result);
+        waitTillProvisioned(testContainerName);
 
         // Copy the input files here, we need sudo because of openshift file protections
         String gearUUID = getOpenShiftGearUuid(testContainerName);

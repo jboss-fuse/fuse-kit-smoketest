@@ -90,6 +90,27 @@ public class OSESmokeTestBase {
         return result;
     }
 
+
+    /**
+     *
+     * @param containerName
+     * @throws Exception
+     */
+    public void waitTillProvisioned(String containerName)throws Exception {
+        boolean provisioned = false;
+        int attempts = 0;
+        while (!provisioned & attempts < 10) {
+            String provisionStatus = sshClient.executeCommand("container-info " + containerName + " | grep \"Provision Status:\"");
+            LOG.info("ProvisionStatus on attempt " + attempts + " : " + provisionStatus);
+            if (provisionStatus.trim().endsWith("sucess")) {
+                provisioned = true;
+            } else {
+                attempts++;
+                Thread.sleep(6000);
+            }
+        }
+    }
+
     /**
      *
      * @param openshiftGearUuid
