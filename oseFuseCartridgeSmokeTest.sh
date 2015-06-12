@@ -3,7 +3,8 @@ export OSE_RPM=$1
 export APP_NAME=smoketestapp
 export SMOKETESTNAMESPACE=smokenamespace
 rhc setup --rhlogin demo --password openshift --create-token --server vm.openshift.example.com
-rhc app-delete --confirm ${APP_NAME} 
+rhc app-delete --confirm ${APP_NAME}
+rm -rf ${APP_NAME}
 sudo oo-admin-ctl-cartridge --command delete --name fuse-6.2.0
 sudo yum remove --assumeyes openshift-origin-cartridge-fuse
 rm -rf *.rpm
