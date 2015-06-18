@@ -74,7 +74,7 @@ public class OSEFabricTest extends OSESmokeTestBase {
         LOG.info(">>>> Response from container-info {} [{}]", newContainerName, response2);
 
         assertTrue(response.contains(newContainerName));
-        assertTrue(response.contains("success"));
+        assertTrue("Invalid response, got [" + response + "]", response.contains("success"));
 
         response=sshClient.executeCommand("container-delete " + newContainerName);
         LOG.info(">>>> Response from delete " + response);
