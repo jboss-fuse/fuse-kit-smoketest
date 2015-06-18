@@ -99,7 +99,7 @@ public class OSESmokeTestBase {
     public void waitTillProvisioned(String containerName)throws Exception {
         boolean provisioned = false;
         int attempts = 0;
-        while (!provisioned & attempts < 20) {
+        while (!provisioned & attempts < 35) {
             String provisionStatus = sshClient.executeCommand("container-info " + containerName + " | grep \"Provision Status:\"");
             LOG.info("ProvisionStatus on attempt " + attempts + " : " + provisionStatus);
             if (provisionStatus.trim().endsWith("sucess")) {
