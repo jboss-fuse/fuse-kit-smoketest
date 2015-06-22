@@ -1,5 +1,6 @@
 #
-export OSE_RPM=$1
+export OSE_FUSE_CARTRIDGE_RPM_URL=$1
+export OSE_FUSE_CARTRIDGE_RPM=`echo ${OSE_FUSE_CARTRIDGE_RPM_URL} | sed 's/^.*\///g'`
 export APP_NAME=smoketestapp
 export SMOKETESTNAMESPACE=smokenamespace
 rhc setup --rhlogin demo --password openshift --create-token --server vm.openshift.example.com
@@ -8,8 +9,8 @@ rm -rf ${APP_NAME}
 sudo oo-admin-ctl-cartridge --command delete --name fuse-6.2.0
 sudo yum remove --assumeyes openshift-origin-cartridge-fuse
 rm -rf *.rpm
-wget $OSE_RPM
-sudo yum --assumeyes localinstall $OSE_RPM
+wget OSE_FUSE_CARTRIDGE_RPM_URL
+sudo yum --assumeyes localinstall OSE_FUSE_CARTRIDGE_RPM
 sudo oo-admin-ctl-cartridge --command import-profile --activate
 sudo oo-admin-ctl-cartridge --command list 
 
