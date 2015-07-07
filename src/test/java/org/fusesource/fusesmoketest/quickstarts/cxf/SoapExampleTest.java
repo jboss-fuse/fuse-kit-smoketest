@@ -1,6 +1,7 @@
 package org.fusesource.fusesmoketest.quickstarts.cxf;
 
 import org.fusesource.fusesmoketest.quickstarts.FuseSmokeTestBase;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 public class SoapExampleTest extends FuseSmokeTestBase {
     private static final Logger LOG = LoggerFactory.getLogger(SoapExampleTest.class);
 
-    //@Ignore("https://issues.jboss.org/browse/ENTESB-1833")
+    @Ignore("ENTESB-3565")
     @Test
 	public void testSimple() throws Exception {
 		// Set up a connection to the web service

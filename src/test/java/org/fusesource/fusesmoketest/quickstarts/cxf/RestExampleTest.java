@@ -2,6 +2,7 @@ package org.fusesource.fusesmoketest.quickstarts.cxf;
 
 import org.fusesource.fusesmoketest.quickstarts.FuseSmokeTestBase;
 import org.fusesource.fusesmoketest.quickstarts.utils.TestUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ public class RestExampleTest extends FuseSmokeTestBase {
 	 *
 	 * @throws Exception
 	 */
+	@Ignore("ENTESB-3565")
 	@Test
 	public void testGetCustomer123() throws Exception {
 		URL url = new URL(EXAMPLES_URL_BASE + "/crm/customerservice/customers/123");
@@ -44,6 +46,7 @@ public class RestExampleTest extends FuseSmokeTestBase {
 	 * Test getting product 323 in order 223
 	 * On the server side, it matches the Order's getProduct() method
 	 */
+	@Ignore("ENTESB-3565")
 	@Test
 	public void testGetOrders223Product323() throws Exception {
 		URL url = new URL(EXAMPLES_URL_BASE + "/crm/customerservice/orders/223/products/323");
