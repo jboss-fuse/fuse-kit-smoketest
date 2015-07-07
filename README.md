@@ -19,11 +19,9 @@ To run the other (non-quickstarts, non-ose) tests
 1. Run fuse, and create a fabric.  (TODO check, is this necessary?)
 2. Run the tests with the following command:
 
-    mvn -Pnoquickstarts clean install
+    mvn -DFUSE_HOME=${FUSE_HOME} -Pnoquickstarts clean install
     
 To run the OSE tests
-
-TODO this requires much more information
 
     mvn -Pose -DOSE_USERNAME=demo -DOSE_PASSWORD=openshift -DOSE_PORT=42777 -DOSE_HOSTNAME=fud-mynamespace.openshift.example.com \
         -DFUSE_USER=admin FUSE_PASSWORD=jbXPmnSeYhDu clean install
