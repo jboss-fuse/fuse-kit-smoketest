@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 public class CamelLogWikiExampleTest extends SmokeTestBase {
     protected static final Logger LOG = LoggerFactory.getLogger(CamelLogWikiExampleTest.class);
     protected static String FUSE_HOME ="";
+    protected String childContainerName = "camel1-" + System.currentTimeMillis();
 
     @BeforeClass
     public static void init() throws Exception {
@@ -35,6 +36,7 @@ public class CamelLogWikiExampleTest extends SmokeTestBase {
 
     @After
     public void tearDown() throws Exception {
+        FabricSupport.removeContainer(childContainerName);
         sshClient.disconnect();
     }
 
@@ -45,7 +47,7 @@ public class CamelLogWikiExampleTest extends SmokeTestBase {
      */
     @Test(timeout = 5 * 60 * 1000)
     public void testCreateChildContainer() throws Exception {
-        String childContainerName = "camel1-" + System.currentTimeMillis();
+
         FabricSupport.createChildContainer(childContainerName, "quickstarts-beginner-camel.log.wiki");
         String response = sshClient.executeCommand("container-list");
         LOG.info(">>> Response0 " + response);
