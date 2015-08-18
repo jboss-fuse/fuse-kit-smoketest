@@ -52,7 +52,16 @@ public class CamelLogWikiExampleTest extends SmokeTestBase {
         assertTrue("[" + response + "] should contain container name ]" + childContainerName + "]", response.contains(childContainerName));
 
         int expectedLogMessages = 5;
-        int foundLogMessages = TailLog.tailAndSearchLog(FUSE_HOME + "/instances/" + childContainerName + "/data/log/fuse.log", expectedLogMessages, 5000, "Hello from Fabric based Camel route"); // and log-route?
+        int iteration = 0;
+        int foundLogMessages = 0;
+
+        while (foundLogMessages < expectedLogMessages && iteration < 10) {
+            foundLogMessages = TailLog.tailAndSearchLog(FUSE_HOME + "/instances/" + childContainerName + "/data/log/fuse.log", expectedLogMessages, 5000, "Hello from Fabric based Camel route"); // and log-route?
+            LOG.info(">>>> received " + foundLogMessages + " messages on iteration " + iteration);
+            iteration++;
+        }
+
+
         assertEquals("Expected " + expectedLogMessages + " log messages", expectedLogMessages, foundLogMessages);
     }
 
