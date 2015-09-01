@@ -3,10 +3,7 @@ package org.fusesource.fusesmoketest.camel;
 import org.fusesource.fusesmoketest.SmokeTestBase;
 import org.fusesource.fusesmoketest.utils.FabricSupport;
 import org.fusesource.fusesmoketest.utils.TailLog;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,6 +42,7 @@ public class CamelLogWikiExampleTest extends SmokeTestBase {
      * route1 and route2
      * @throws Exception
      */
+    @Ignore
     @Test(timeout = 5 * 60 * 1000)
     public void testCreateChildContainer() throws Exception {
 
