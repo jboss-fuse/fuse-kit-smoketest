@@ -20,21 +20,21 @@ public class CamelLogWikiExampleTest extends SmokeTestBase {
 
     @BeforeClass
     public static void init() throws Exception {
-        LOG.info(">>>> Creating fabric in init()");
+        /*LOG.info(">>>> Creating fabric in init()");
         FabricSupport.createFabric();       // TODO do we need this?
-        FUSE_HOME = System.getProperty("FUSE_HOME");
+        FUSE_HOME = System.getProperty("FUSE_HOME");*/
     }
 
     @Before
     public void setUp() throws Exception {
-        LOG.info("Starting test " + testName.getMethodName());
-        sshInit();
+        /*LOG.info("Starting test " + testName.getMethodName());
+        sshInit();*/
     }
 
     @After
     public void tearDown() throws Exception {
-        FabricSupport.removeContainer(childContainerName);
-        sshClient.disconnect();
+        /*FabricSupport.removeContainer(childContainerName);
+        sshClient.disconnect();*/
     }
 
     /**
@@ -42,7 +42,7 @@ public class CamelLogWikiExampleTest extends SmokeTestBase {
      * route1 and route2
      * @throws Exception
      */
-    @Ignore
+    @Ignore("Remember to restore setup/teardown")
     @Test(timeout = 5 * 60 * 1000)
     public void testCreateChildContainer() throws Exception {
 
