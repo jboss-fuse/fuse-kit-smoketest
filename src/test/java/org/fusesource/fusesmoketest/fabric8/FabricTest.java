@@ -32,16 +32,16 @@ public class FabricTest extends SmokeTestBase {
     public void cryptoAlgorithmCommandTest() throws Exception {
         String defaultCryptoAlgorithmName = "PBEWithMD5AndDES";
         String newCryptoAlgorithmName = "SHA-1";
-        String response = FabricSupport.executeCommand("fabric:crypt-algorithm-get ");
+        String response = FabricSupport.executeCommand("fabric:crypt-algorithm-get ").trim();
         LOG.info(">>>> response: [" + response + "]");
-        assertEquals(defaultCryptoAlgorithmName, response.trim());
+        assertTrue("Expected response to include " + defaultCryptoAlgorithmName, response.endsWith(defaultCryptoAlgorithmName));
 
-        response = FabricSupport.executeCommand("fabric:crypt-algorithm-set " + newCryptoAlgorithmName);
-        LOG.info(">>>> set returned " + response.trim());
+        response = FabricSupport.executeCommand("fabric:crypt-algorithm-set " + newCryptoAlgorithmName).trim();
+        LOG.info(">>>> set returned [" + response + "]");
 
-        response = FabricSupport.executeCommand("fabric:crypt-algorithm-get ");
+        response = FabricSupport.executeCommand("fabric:crypt-algorithm-get ").trim();
         LOG.info(">>>> response: [" + response + "]");
-        assertEquals(newCryptoAlgorithmName, response.trim());
+        assertTrue("Expected response to include " + newCryptoAlgorithmName, response.endsWith(newCryptoAlgorithmName));
 
         // reset
         FabricSupport.executeCommand("fabric:crypt-algorithm-set " + defaultCryptoAlgorithmName);
@@ -54,12 +54,14 @@ public class FabricTest extends SmokeTestBase {
         String defaultPassword = "admin";
 
         String response = FabricSupport.executeCommand("fabric:crypt-password-get ");
-        assertEquals(defaultPassword, response.trim());
+        LOG.info(">>>> response: [" + response + "]");
+        assertStringContains(response.trim(), defaultPassword);
+
 
         FabricSupport.executeCommand("fabric:crypt-password-set " + newPassword);
 
         response = FabricSupport.executeCommand("fabric:crypt-password-get ");
-        assertEquals(newPassword, response.trim());
+        assertStringContains(response.trim(), newPassword);
 
         // Set it back...
         FabricSupport.executeCommand("fabric:crypt-password-set " + defaultPassword);
