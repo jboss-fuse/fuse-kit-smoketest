@@ -20,6 +20,7 @@ public class CreateChildContainerTest extends SmokeTestBase {
     public static void init() throws Exception {
         LOG.info(">>>> Creating fabric in init()");
         //FabricSupport.createFabric();
+        FabricSupport.sshInit();
     }
 
     @Before
