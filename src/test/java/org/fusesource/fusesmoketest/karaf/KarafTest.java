@@ -24,7 +24,7 @@ public class KarafTest extends SmokeTestBase {
     @BeforeClass
     public static void init() throws Exception {
         LOG.info(">>>> Creating fabric in init()");
-        FabricSupport.createFabric();
+        //FabricSupport.createFabric();
     }
 
     @Before
