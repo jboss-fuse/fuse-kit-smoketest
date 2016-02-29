@@ -82,7 +82,7 @@ public class KarafTest extends SmokeTestBase {
         List<String> commands = Arrays.asList(commandStrings);
         List<String> failures = new ArrayList<String>();
         String response = sshClient.executeCommand("*:help");
-        LOG.debug(">>>>> RESPONSE [" + response + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+        LOG.info(">>>>> RESPONSE [" + response + "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
         for (String command : commands) {
             if (!response.contains(command)) {
                 LOG.debug(">>>> FAILED: " + command);
