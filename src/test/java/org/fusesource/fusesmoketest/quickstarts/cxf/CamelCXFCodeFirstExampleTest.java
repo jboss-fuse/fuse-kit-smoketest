@@ -44,6 +44,7 @@ public class CamelCXFCodeFirstExampleTest {
         return bos.toString();
     }
 
+    @Ignore("ENTESB-5052")
     @Test(timeout = 60 * 1000)
     public void sendRequest() throws Exception {
 

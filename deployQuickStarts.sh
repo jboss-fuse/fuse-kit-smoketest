@@ -18,10 +18,12 @@ ${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickst
 ${FUSE_HOME}/bin/client -u admin -p admin "features:install cxf"
 ${FUSE_HOME}/bin/client -u admin -p admin "features:install fabric-cxf"
 
-${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-code-first/${VERSION}"
+
+# ENTESB-5052 can't run both the cxf-code-first and cxf-contract-first quickstarts at the same time.
+#${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-code-first/${VERSION}"
 ${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-contract-first/${VERSION}"
 ${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-rest/${VERSION}"
-${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-secure-rest/${VERSION}"
+#${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-secure-rest/${VERSION}"
 ${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-soap/${VERSION}"
 ${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-secure-soap/${VERSION}"
 
