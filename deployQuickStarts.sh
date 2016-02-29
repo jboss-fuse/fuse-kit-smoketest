@@ -36,7 +36,8 @@ ${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickst
 #${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-salesforce/${VERSION}"
 
 ${FUSE_HOME}/bin/client -u admin -p admin "features:install camel-olingo2"
-${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-odata/${VERSION}"
+#ENTESB-5048
+#${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-odata/${VERSION}"
 
 #####${FUSE_HOME}/bin/client -u admin -p admin "features:install camel-sap"
 #####${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-sap/${VERSION}"
