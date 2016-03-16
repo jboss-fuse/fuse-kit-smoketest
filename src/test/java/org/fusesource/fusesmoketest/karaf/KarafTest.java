@@ -77,8 +77,7 @@ public class KarafTest extends SmokeTestBase {
 
     @Test(timeout = 30 * 1000)
     public void testCommandsExist() throws Exception {
-        // ENTESB-4876 CXF feature fails to install
-        String[] commandStrings = {"activemq", "camel", "config", /*"cxf", */"dev", "fab", "fabric",
+        String[] commandStrings = {"activemq", "camel", "config", "cxf", "dev", "fab", "fabric",
                 "features", "help", "jaas", "log", "osgi", "packages", "patch","scr", "shell", "ssh"};
         List<String> commands = Arrays.asList(commandStrings);
         List<String> failures = new ArrayList<String>();
