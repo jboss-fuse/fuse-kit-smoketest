@@ -107,7 +107,7 @@
 
         echo "Shutdown complete"
         stage 'shutdown complete'
-        step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: '**/target/*-reports/*.xml'])
+        // FIXME!!!! step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: '**/target/*-reports/*.xml'])
 
 
         if (!unix) {
