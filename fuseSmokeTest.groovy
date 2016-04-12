@@ -113,7 +113,7 @@
         if (!unix) {
             build job: 'Reboot_windows', quietPeriod: 30, wait: false
         } else {
-            stage 'clear out workspace'
-            deleteDir()  //Looks like we can't do this on windows
+            //stage 'clear out workspace'
+            //deleteDir()  //Looks like we can't do this on windows
         }
     }
