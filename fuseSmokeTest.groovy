@@ -105,6 +105,8 @@
             bat '%FUSE_HOME%\\bin\\stop'
         }
 
+        echo "Shutdown complete"
+        stage 'shutdown complete'
         // FIXME!!!! step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: '**/target/*-reports/*.xml'])
 
 
