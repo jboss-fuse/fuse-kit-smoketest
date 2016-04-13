@@ -31,7 +31,7 @@ stage 'download kit'
 downloadAndUnzipKit(FUSE_KIT_URL, zipFileName)
 uncommentAdminUserPassword(fuseHome)
 
-sh 'cat ' + fuseHome + '/etc/user.properties'
+sh 'cat ' + fuseHome + '/etc/users.properties'
 
 try {
     // Start the broker
