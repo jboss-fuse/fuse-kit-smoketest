@@ -15,10 +15,7 @@ def temp = zipFileName.substring(0, zipFileName.length() - 4); // strip off .zip
 def version = temp.substring("jboss-fuse-full-".size());
 def fuseHome = "jboss-fuse-" + version
 
-// TODO doI need all of these?
-//env.ZIPFILENAME = "${zipFileName}"
 env.FUSE_HOME = "${fuseHome}"
-//env.VERSION = "${version}"
 
 stage 'cleanup from previous runs'
 if (isUnix()) {
@@ -56,11 +53,8 @@ try {
     stage 'Final shutdown'
     stopBroker(fuseHome)
 
-
-    echo "Shutdown complete"
     stage 'shutdown complete'
-    // FIXME!!!! step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: '**/target/*-reports/*.xml'])
-
+    // FIXME!!!! step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: '**/target/*-reports/*.xml']
 
     if (!isUnix()) {
         build job: 'Reboot_windows', quietPeriod: 30, wait: false
