@@ -60,7 +60,7 @@ try {
 
     /// TODO we need a client command method
     stage 'Create a fabric'
-    executeClientCommand(fuseHome, '-u admin -p admin "fabric:create --wait-for-provisioning"')
+    executeClientCommand(fuseHome, 'fabric:create --wait-for-provisioning')
     /*
     if (isUnix()) {
         sh '${FUSE_HOME}/bin/client -u admin -p admin "fabric:create --wait-for-provisioning"'
@@ -133,7 +133,7 @@ def stopBroker(fuseHomeDirectory) {
 
 def executeClientCommand(fuseHomeDirectory, command) {  // TODO always assume -u admin -p admin?
     if (isUnix()) {
-        sh './' + fuseHomeDirectory + '/bin/client ' + command
+        sh './' + fuseHomeDirectory + '/bin/client -u admin -p admin \"' + command + '\"'
     } else {
         bat fuseHomeDirectory + '\\bin\\client '
     }
@@ -148,7 +148,7 @@ def maven(command) {
 }
 
 def deployQuickstarts(fuseHomeDirectory, version) {
-    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-cbr/' + version + '"')
+    executeClientCommand(fuseHomeDirectory, '-osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-cbr/' + version)
     executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-eips/' + version + '"')
     executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-errorhandler/' + version + '"')
     executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-log/' + version + '"')
