@@ -148,21 +148,21 @@ def maven(command) {
 }
 
 def deployQuickstarts(fuseHomeDirectory, version) {
-    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-cbr/' + version)
-    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-eips/' + version)
-    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-errorhandler/' + version)
-    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-log/' + version)
-    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-log-wiki/' + version)
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-cbr/' + version + '"')
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-eips/' + version + '"')
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-errorhandler/' + version + '"')
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-log/' + version + '"')
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-log-wiki/' + version + '"')
 
     executeClientCommand(fuseHomeDirectory, '-u admin -p admin "features:install cxf')
     executeClientCommand(fuseHomeDirectory, '-u admin -p admin "features:install fabric-cxf')
 
-    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-code-first/' + version)
-    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-contract-first/' + version)
-    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-rest/' + version)
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-code-first/' + version + '"')
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-contract-first/' + version + '"')
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-rest/' + version + '"')
     //executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-secure-rest/' + version)   // FIXME
-    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-soap/' + version)
-    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-secure-soap/' + version)
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-soap/' + version + '"')
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-secure-soap/' + version + '"')
 
 /*  FIXME check bugs and see which of these should still be working
     ###### ${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-amq/${VERSION}"
