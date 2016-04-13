@@ -16,10 +16,9 @@ def version = temp.substring("jboss-fuse-full-".size());
 def fuseHome = "jboss-fuse-" + version
 
 // TODO doI need all of these?
-env.ZIPFILENAME = "${zipFileName}"
+//env.ZIPFILENAME = "${zipFileName}"
 env.FUSE_HOME = "${fuseHome}"
-env.VERSION = "${version}"
-//env.WORKSPACE="${PWD}"    // FIXME do I need this?
+//env.VERSION = "${version}"
 
 stage 'cleanup from previous runs'
 if (isUnix()) {
@@ -40,33 +39,16 @@ try {
     // Build and deploy the quickstarts
     stage 'Build and Deploy Quickstarts'
     maven('--version')
-    echo '>>>> maven --file ${fuseHome}/quickstarts/pom.xml '
     maven("--file ${fuseHome}/quickstarts/pom.xml clean install")
 
     stage 'deploy quickstarts'
-    // FIXME we need a windows version
     deployQuickstarts(fuseHome, version)
-    /*
-    if (isUnix()) {
-        sh './deployQuickStarts.sh'
-    } else {
-        // TODO
-    }
-    */
 
     stage 'Quickstart tests'
-    // TODO how do deal with ${PWD} here
     maven('-DFUSE_HOME=${PWD}/${FUSE_HOME} -Dsurefire.rerunFailingTestsCount=2 -Pquickstarts clean test')
 
-    /// TODO we need a client command method
     stage 'Create a fabric'
     executeClientCommand(fuseHome, 'fabric:create --wait-for-provisioning')
-    /*
-    if (isUnix()) {
-        sh '${FUSE_HOME}/bin/client fabric:create --wait-for-provisioning"'
-    } else {
-        // FIXME
-    }*/
 
     stage 'Other tests'
     maven('-DFUSE_HOME=${PWD}/${FUSE_HOME} -Dsurefire.rerunFailingTestsCount=2 -Pnoquickstarts clean test')
