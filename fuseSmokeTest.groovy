@@ -31,8 +31,6 @@ stage 'download kit'
 downloadAndUnzipKit(FUSE_KIT_URL, zipFileName)
 uncommentAdminUserPassword(fuseHome)
 
-sh 'cat ' + fuseHome + '/etc/users.properties'
-
 try {
     // Start the broker
     stage 'starting broker'
@@ -47,11 +45,14 @@ try {
 
     stage 'deploy quickstarts'
     // FIXME we need a windows version
+    deployQuickstarts(fuseHome, version)
+    /*
     if (isUnix()) {
         sh './deployQuickStarts.sh'
     } else {
         // TODO
     }
+    */
 
     stage 'Quickstart tests'
     // TODO how do deal with ${PWD} here
@@ -79,7 +80,7 @@ try {
     // FIXME!!!! step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: '**/target/*-reports/*.xml'])
 
 
-    if (!unix) {
+    if (!isUnix()) {
         build job: 'Reboot_windows', quietPeriod: 30, wait: false
     } else {
         //stage 'clear out workspace'
@@ -130,7 +131,7 @@ def stopBroker(fuseHomeDirectory) {
     }
 }
 
-def executeClientCommand(fuseHomeDirectory, command) {
+def executeClientCommand(fuseHomeDirectory, command) {  // TODO always assume -u admin -p admin?
     if (isUnix()) {
         sh './' + fuseHomeDirectory + '/bin/client ' + command
     } else {
@@ -144,4 +145,41 @@ def maven(command) {
     } else {
         bat 'mvn ' + command
     }
+}
+
+deployQuickstarts(fuseHomeDirectory, version) {
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-cbr/' + version)
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-eips/' + version)
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-errorhandler/' + version)
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-log/' + version)
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-log-wiki/' + version)
+
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "features:install cxf')
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "features:install fabric-cxf')
+
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-code-first/' + version)
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-contract-first/' + version)
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-rest/' + version)
+    //executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-secure-rest/' + version)   // FIXME
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-soap/' + version)
+    executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-secure-soap/' + version)
+
+/*  FIXME check bugs and see which of these should still be working
+    ###### ${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-amq/${VERSION}"
+
+    #ENTESB-4877 install fails for camel-box, camel-linkedin, and camel-salesforce features
+    #${FUSE_HOME}/bin/client -u admin -p admin "features:install camel-box"
+    #${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-box/${VERSION}"
+    #${FUSE_HOME}/bin/client -u admin -p admin "features:install camel-linkedin"
+    #${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-linkedin/${VERSION}"
+    #${FUSE_HOME}/bin/client -u admin -p admin "features:install camel-salesforce"
+    #${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-salesforce/${VERSION}"
+
+    ${FUSE_HOME}/bin/client -u admin -p admin "features:install camel-olingo2"
+    #ENTESB-5048
+    #${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-odata/${VERSION}"
+
+    #####${FUSE_HOME}/bin/client -u admin -p admin "features:install camel-sap"
+    #####${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-sap/${VERSION}"
+*/
 }
