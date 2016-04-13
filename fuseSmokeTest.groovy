@@ -148,7 +148,7 @@ def maven(command) {
 }
 
 def deployQuickstarts(fuseHomeDirectory, version) {
-    executeClientCommand(fuseHomeDirectory, '-osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-cbr/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-cbr/' + version)
     executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-eips/' + version + '"')
     executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-errorhandler/' + version + '"')
     executeClientCommand(fuseHomeDirectory, '-u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-log/' + version + '"')
