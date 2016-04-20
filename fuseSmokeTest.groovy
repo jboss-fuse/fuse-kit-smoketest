@@ -41,7 +41,7 @@ try {
         sh 'sed -i \'s/1.52/1.54/g\' ' + fuseHome + '/bin/client'
         sh 'sed -i -e \'68d\' ' + fuseHome + '/quickstarts/cxf/secure-rest/pom.xml'
     } else {
-        bat 'sed -i \'s/1.52/1.54/g\' ' + fuseHome + '\\bin\\client'
+        bat 'sed -i \'s/1.52/1.54/g\' ' + fuseHome + '\\bin\\client.bat'
         bat 'sed -i -e \'68d\' ' + fuseHome + '\\quickstarts\\cxf\\secure-rest\\pom.xml'
     }
     // FIXME remove fail-never when quickstart failure is analyzed
@@ -113,7 +113,7 @@ def startBroker(fuseHomeDirectory) {
 
 def stopBroker(fuseHomeDirectory) {
     if (isUnix()) {
-        sh './' + fuseHomeDirectory + '/bin/stop'
+        sh './' + fuseHomeDirectory + '/bin/stop || true'  // TODO ignore errors only on final shutdown
     } else {
         bat fuseHomeDirectory + '\\bin\\stop'
     }
@@ -146,7 +146,7 @@ def deployQuickstarts(fuseHomeDirectory, version) {
     executeClientCommand(fuseHomeDirectory, 'features:install fabric-cxf')
 
     executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-code-first/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-contract-first/' + version)
+    // ENTESB-5368 executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-contract-first/' + version)
     executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-rest/' + version)
     //executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-secure-rest/' + version)   // FIXME
     executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-soap/' + version)
