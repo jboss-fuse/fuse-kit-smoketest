@@ -1,6 +1,7 @@
 package org.fusesource.fusesmoketest.quickstarts.cxf;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,7 @@ public class CamelCXFContractFirstExampleTest {
         return bos.toString();
     }
 
+    @Ignore("TODO Open JIRA")
     @Test
     public void sendRequest() throws Exception {
 
