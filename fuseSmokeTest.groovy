@@ -34,7 +34,7 @@ try {
     sleep 120
 
     // Build and deploy the quickstarts
-    stage 'Build and Deploy Quickstarts'
+    stage 'Build Quickstarts'
     maven('--version')
     // FIXME Temporary hacks for build 057
     if (isUnix()) {
@@ -60,8 +60,11 @@ try {
     maven('-DFUSE_HOME=${PWD}/${FUSE_HOME} -Dsurefire.rerunFailingTestsCount=2 -Pnoquickstarts clean test')
 } finally {
     stage 'Final shutdown'
-    stopBroker(fuseHome)
-
+    try {
+        stopBroker(fuseHome)
+    } catch (Exception e) {
+        echo 'Ignoring exception on broker shutdown'
+    }
     stage 'shutdown complete'
     // FIXME!!!! step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: '**/target/*-reports/*.xml']
 
