@@ -36,6 +36,12 @@ try {
     // Build and deploy the quickstarts
     stage 'Build and Deploy Quickstarts'
     maven('--version')
+    // FIXME Temporary hack for build 057
+    if (isUnix()) {
+        sh 'sed -i -e \'68d\' ' + fuseHome + '/quickstarts/cxf/secure-rest/pom.xml'
+    } else {
+        bat 'sed -i -e \'68d\' ' + fuseHome + '\\quickstarts\\cxf\\secure-rest\\pom.xml'
+    }
     maven("--file ${fuseHome}/quickstarts/pom.xml clean install")
 
     stage 'deploy quickstarts'
