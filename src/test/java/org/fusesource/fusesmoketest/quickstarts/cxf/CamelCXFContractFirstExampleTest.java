@@ -44,7 +44,7 @@ public class CamelCXFContractFirstExampleTest {
         return bos.toString();
     }
 
-    @Ignore("TODO Open JIRA")
+    @Ignore("ENTESB-5368")
     @Test
     public void sendRequest() throws Exception {
 
