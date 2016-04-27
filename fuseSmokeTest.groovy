@@ -54,7 +54,7 @@ try {
     } else {
         bat 'pwd'
         echo 'FuseHome is ' + fuseHome
-        maven('-DFUSE_HOME=' + fuseHome + ' -Dsurefire.rerunFailingTestsCount=2 -Pquickstarts clean test')
+        maven('-DFUSE_HOME=' + fuseHome + ' -Pquickstarts clean test')
     }
     stage 'Create a fabric'
     executeClientCommand(fuseHome, 'fabric:create --wait-for-provisioning')
@@ -63,7 +63,7 @@ try {
     if (isUnix() ) {
         maven('-DFUSE_HOME=${PWD}/${FUSE_HOME} -Dsurefire.rerunFailingTestsCount=2 -Pnoquickstarts clean test')
     } else {
-        maven('-DFUSE_HOME=' + fuseHome + ' -Dsurefire.rerunFailingTestsCount=2 -Pnoquickstarts clean test')
+        maven('-DFUSE_HOME=' + fuseHome + ' -Pnoquickstarts clean test')
     }
 } finally {
     stage 'Final shutdown'
