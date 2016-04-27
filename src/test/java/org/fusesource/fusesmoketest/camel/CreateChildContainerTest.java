@@ -42,26 +42,18 @@ public class CreateChildContainerTest extends SmokeTestBase {
     @Test(timeout = 5 * 60 * 1000)
     public void testCreateChildContainer() throws Exception {
         String childContainerName = "camel1-" + System.currentTimeMillis();
-        FabricSupport.createChildContainer(childContainerName, "example-camel-mq");
+        FabricSupport.createChildContainer(childContainerName, true, "feature-camel", "quickstarts-beginner-camel.cbr");
         String response = sshClient.executeCommand("container-list");
         LOG.info(">>> Response0 " + response);
         assertTrue("[" + response + "] should contain container name ]" + childContainerName + "]", response.contains(childContainerName));
 
         response = FabricSupport.executeCommandOnChild(childContainerName, "camel:route-list");
         LOG.info(">>>>Response 1 [" + response.toString() + "]");
-        assertTrue(response.contains("route1"));
-        assertTrue(response.contains("route2"));
-        assertTrue(response.contains("fabric-camel-demo"));
+        assertTrue(response.contains("cbr-route"));
 
         response = FabricSupport.executeCommandOnChild(childContainerName, "camel:route-info route1");
         LOG.info(">>>>Response 2 [" + response.toString() + "]");
         assertTrue(response.contains("Exchanges Inflight:"));
-        assertTrue(response.contains("fabric-camel-demo"));
-
-        response = sshClient.executeCommand("container-delete " + childContainerName);
-        LOG.info(">>>>Response 4 " + response);
-        response = sshClient.executeCommand("container-list");
-        assertFalse(response.contains(childContainerName));
+        assertTrue(response.contains("cbr-example-context"));
     }
-
 }
