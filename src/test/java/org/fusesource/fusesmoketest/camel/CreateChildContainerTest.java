@@ -51,7 +51,7 @@ public class CreateChildContainerTest extends SmokeTestBase {
         LOG.info(">>>>Response 1 [" + response.toString() + "]");
         assertTrue(response.contains("cbr-route"));
 
-        response = FabricSupport.executeCommandOnChild(childContainerName, "camel:route-info route1");
+        response = FabricSupport.executeCommandOnChild(childContainerName, "camel:route-info cbr-route");
         LOG.info(">>>>Response 2 [" + response.toString() + "]");
         assertTrue(response.contains("Exchanges Inflight:"));
         assertTrue(response.contains("cbr-example-context"));
