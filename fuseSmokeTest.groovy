@@ -53,8 +53,10 @@ try {
         maven('-DFUSE_HOME=${PWD}/${FUSE_HOME} -Dsurefire.rerunFailingTestsCount=2 -Pquickstarts clean test')
     } else {
         bat 'pwd'
+        bat 'ls -alF'
         echo 'FuseHome is ' + fuseHome
-        maven('-DFUSE_HOME=' + fuseHome + ' -Pquickstarts clean test')
+        // FIXME there must be a better way to do this...
+        maven('-DFUSE_HOME=' + env.PWD + '/fuse-smoketest-pipeline-windows/' + fuseHome + ' -Pquickstarts clean test')
     }
     stage 'Create a fabric'
     executeClientCommand(fuseHome, 'fabric:create --wait-for-provisioning')
