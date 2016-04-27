@@ -38,10 +38,8 @@ try {
     maven('--version')
     // FIXME Temporary hacks for build 057
     if (isUnix()) {
-        sh 'sed -i \'s/1.52/1.54/g\' ' + fuseHome + '/bin/client'
         sh 'sed -i -e \'68d\' ' + fuseHome + '/quickstarts/cxf/secure-rest/pom.xml'
     } else {
-        bat 'sed -i \'s/1.52/1.54/g\' ' + fuseHome + '\\bin\\client.bat'
         bat 'sed -i -e \'68d\' ' + fuseHome + '\\quickstarts\\cxf\\secure-rest\\pom.xml'
     }
     // FIXME remove fail-never when quickstart failure is analyzed
@@ -51,13 +49,22 @@ try {
     deployQuickstarts(fuseHome, version)
 
     stage 'Quickstart tests'
-    maven('-DFUSE_HOME=${PWD}/${FUSE_HOME} -Dsurefire.rerunFailingTestsCount=2 -Pquickstarts clean test')
-
+    if (isUnix()) {
+        maven('-DFUSE_HOME=${PWD}/${FUSE_HOME} -Dsurefire.rerunFailingTestsCount=2 -Pquickstarts clean test')
+    } else {
+        bat 'pwd'
+        echo 'FuseHome is ' + fuseHome
+        maven('-DFUSE_HOME=' + fuseHome + '-Dsurefire.rerunFailingTestsCount=2 -Pquickstarts clean test')
+    }
     stage 'Create a fabric'
     executeClientCommand(fuseHome, 'fabric:create --wait-for-provisioning')
 
     stage 'Other tests'
-    maven('-DFUSE_HOME=${PWD}/${FUSE_HOME} -Dsurefire.rerunFailingTestsCount=2 -Pnoquickstarts clean test')
+    if (isUnix() ) {
+        maven('-DFUSE_HOME=${PWD}/${FUSE_HOME} -Dsurefire.rerunFailingTestsCount=2 -Pnoquickstarts clean test')
+    } else {
+        maven('-DFUSE_HOME=' + fuseHome + '-Dsurefire.rerunFailingTestsCount=2 -Pnoquickstarts clean test')
+    }
 } finally {
     stage 'Final shutdown'
     try {
