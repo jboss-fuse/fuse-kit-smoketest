@@ -123,7 +123,7 @@ def executeClientCommand(fuseHomeDirectory, command) {  // TODO always assume -u
     if (isUnix()) {
         sh './' + fuseHomeDirectory + '/bin/client -u admin -p admin \"' + command + '\"'
     } else {
-        bat fuseHomeDirectory + '\\bin\\client '
+        bat fuseHomeDirectory + '\\bin\\client -u admin -p admin -h localhost \"' + command + '\"'
     }
 }
 
