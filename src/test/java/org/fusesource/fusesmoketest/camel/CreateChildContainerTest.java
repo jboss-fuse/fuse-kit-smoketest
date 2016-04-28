@@ -45,15 +45,18 @@ public class CreateChildContainerTest extends SmokeTestBase {
         FabricSupport.createChildContainer(childContainerName, true, "feature-camel", "quickstarts-beginner-camel.cbr");
         String response = sshClient.executeCommand("container-list");
         LOG.info(">>> Response0 " + response);
-        assertTrue("[" + response + "] should contain container name ]" + childContainerName + "]", response.contains(childContainerName));
+        assertTrue("[" + response + "] should contain container name ]" + childContainerName + "]",
+                response.contains(childContainerName));
 
         response = FabricSupport.executeCommandOnChild(childContainerName, "camel:route-list");
         LOG.info(">>>>Response 1 [" + response.toString() + "]");
-        assertTrue(response.contains("cbr-route"));
+        assertTrue("camel:route-list for " + childContainerName + " did not return cbr-route ", response.contains("cbr-route"));
 
         response = FabricSupport.executeCommandOnChild(childContainerName, "camel:route-info cbr-route");
         LOG.info(">>>>Response 2 [" + response.toString() + "]");
-        assertTrue(response.contains("Exchanges Inflight:"));
-        assertTrue(response.contains("cbr-example-context"));
+        assertTrue("For " + childContainerName + " camel:route-info cbr-route did not container Exchanges Inflight",
+                response.contains("Exchanges Inflight:"));
+        assertTrue("For " + childContainerName + " camel:route-info cbr-route did not container cbr-example-context",
+                response.contains("cbr-example-context"));
     }
 }
