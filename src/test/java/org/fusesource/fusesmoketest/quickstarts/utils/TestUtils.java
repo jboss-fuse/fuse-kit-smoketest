@@ -43,7 +43,13 @@ public class TestUtils {
         if (directory.exists()) {
             Collection<File> files = FileUtils.listFiles(directory, null, true);
             for (File f : files) {
-                fileNames.add(f.getCanonicalPath().replaceAll("\\\\", "/"));
+                String fileName = f.getCanonicalPath();
+                // Flip slashes and chop off drive letter on Windows
+                fileName = fileName.replaceAll("\\\\", "/");
+                if (fileName.length() > 2 && (fileName.charAt(1) == ':')) {
+                    fileName = fileName.substring(2);
+                }
+                fileNames.add(fileName);
             }
         }
 
