@@ -42,27 +42,30 @@ try {
     } else {
         bat 'sed -i -e \'68d\' ' + fuseHome + '\\quickstarts\\cxf\\secure-rest\\pom.xml'
     }
-    // FIXME remove fail-never when quickstart failure is analyzed
-    maven("--file ${fuseHome}/quickstarts/pom.xml --fail-never clean install")
+    maven("--file ${fuseHome}/quickstarts/pom.xml clean install")
 
     stage 'deploy quickstarts'
     deployQuickstarts(fuseHome, version)
 
     stage 'Quickstart tests'
-    if (isUnix()) {
+    maven('-DFUSE_HOME=' + fuseHome + ' -Dsurefire.rerunFailingTestsCount=2 -Pquickstarts clean test')
+
+    /*if (isUnix()) {
         maven('-DFUSE_HOME=${PWD}/${FUSE_HOME} -Dsurefire.rerunFailingTestsCount=2 -Pquickstarts clean test')
     } else {
         maven('-DFUSE_HOME=' + fuseHome + ' -Pquickstarts clean test')
-    }
+    }*/
     stage 'Create a fabric'
     executeClientCommand(fuseHome, 'fabric:create --wait-for-provisioning')
 
     stage 'Other tests'
+    maven('-DFUSE_HOME=' + fuseHome + ' -Dsurefire.rerunFailingTestsCount=2 -Pnoquickstarts clean test')
+    /*
     if (isUnix() ) {
         maven('-DFUSE_HOME=${PWD}/${FUSE_HOME} -Dsurefire.rerunFailingTestsCount=2 -Pnoquickstarts clean test')
     } else {
         maven('-DFUSE_HOME=' + fuseHome + ' -Pnoquickstarts clean test')
-    }
+    }*/
 } finally {
     stage 'Final shutdown'
     try {
@@ -151,22 +154,21 @@ def deployQuickstarts(fuseHomeDirectory, version) {
     executeClientCommand(fuseHomeDirectory, 'features:install fabric-cxf')
 
     executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-code-first/' + version)
-    // ENTESB-5368 executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-contract-first/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-contract-first/' + version)
     executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-rest/' + version)
     //executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-secure-rest/' + version)   // FIXME
     executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-soap/' + version)
     executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-secure-soap/' + version)
 
+    executeClientCommand(fuseHomeDirectory, 'features:install camel-box')
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-box/' + version)
+    executeClientCommand(fuseHomeDirectory, 'features:install camel-linkedin')
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-linkedin/' + version)
+    executeClientCommand(fuseHomeDirectory, 'features:install camel-salesforce')
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-salesforce/' + version)
+
 /*  FIXME check bugs and see which of these should still be working
     ###### ${FUSE_HOME}/bin/client osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-amq/${VERSION}"
-
-    #ENTESB-4877 install fails for camel-box, camel-linkedin, and camel-salesforce features
-    #${FUSE_HOME}/bin/client features:install camel-box"
-    #${FUSE_HOME}/bin/client osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-box/${VERSION}"
-    #${FUSE_HOME}/bin/client features:install camel-linkedin"
-    #${FUSE_HOME}/bin/client osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-linkedin/${VERSION}"
-    #${FUSE_HOME}/bin/client features:install camel-salesforce"
-    #${FUSE_HOME}/bin/client osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-salesforce/${VERSION}"
 
     ${FUSE_HOME}/bin/client features:install camel-olingo2"
     #ENTESB-5048
