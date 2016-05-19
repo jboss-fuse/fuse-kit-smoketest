@@ -134,13 +134,13 @@ public class FabricTest extends SmokeTestBase {
         String testProfileName = "test-profile-" + System.currentTimeMillis();
 
         FabricSupport.createChildContainer(testContainerName,"",true);
-        FabricSupport.waitForProvision(testContainerName,true);
+        FabricSupport.waitForProvisioning(testContainerName,true);
 
         FabricSupport.executeCommand("profile-create "+ testProfileName);
         FabricSupport.executeCommand("container-add-profile "+ testContainerName + " " + testProfileName);
         FabricSupport.executeCommand("profile-edit --feature fabric-zookeeper-commands " + testProfileName);
 
-        FabricSupport.waitForProvision(testContainerName,true);
+        FabricSupport.waitForProvisioning(testContainerName,true);
 
         Thread.sleep(5000);
 

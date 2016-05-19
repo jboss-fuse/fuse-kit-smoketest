@@ -37,7 +37,7 @@ public class FabricSupport {
         disconnect();
 
         FabricSupport.sshInit();
-        FabricSupport.waitForProvision("root", true);
+        FabricSupport.waitForProvisioning("root", true);
         Thread.sleep(10000);
     }
 
@@ -49,11 +49,14 @@ public class FabricSupport {
         sshClient.disconnect();
     }
 
-    public static boolean waitForProvision(String containerName, boolean checkFalse) throws Exception {
-        int limit = 120;
+    public static boolean waitForProvisioning(String containerName, boolean checkFalse) throws Exception {
+        return FabricSupport.waitForProvisioning(containerName, checkFalse, 120);
+    }
+
+    public static boolean waitForProvisioning(String containerName, boolean checkFalse, int iterationLimit) throws Exception {
         int iteration = 1;
         boolean done = false;
-        while (!done && (iteration < limit)) {
+        while (!done && (iteration < iterationLimit)) {
             String response = sshClient.executeCommand("fabric:container-list " + containerName);
             String info = sshClient.executeCommand("fabric:container-info " + containerName );
             int provisionStatusLocation = info.indexOf("Provision Status:");
@@ -94,7 +97,7 @@ public class FabricSupport {
         }
         LOG.info(">>>>> Response from create-child: " + state);
         if (!state.toLowerCase().contains("error")) {
-            FabricSupport.waitForProvision(name, checkError);
+            FabricSupport.waitForProvisioning(name, checkError);
         } else {
             throw new Exception(state);
         }
@@ -111,9 +114,9 @@ public class FabricSupport {
             }
             executeCommand("container-create-child " + profiles + " root " + name);
         }
-        FabricSupport.waitForProvision(name, checkError);
+        FabricSupport.waitForProvisioning(name, checkError, 180);
         if (PATCH) {
-            FabricSupport.waitForProvision(name, checkError);
+            FabricSupport.waitForProvisioning(name, checkError);
         }
     }
 
