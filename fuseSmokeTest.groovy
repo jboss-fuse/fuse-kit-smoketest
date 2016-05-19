@@ -36,12 +36,6 @@ try {
     // Build and deploy the quickstarts
     stage 'Build Quickstarts'
     maven('--version')
-    // FIXME Temporary hacks for build 057
-    if (isUnix()) {
-        sh 'sed -i -e \'68d\' ' + fuseHome + '/quickstarts/cxf/secure-rest/pom.xml'
-    } else {
-        bat 'sed -i -e \'68d\' ' + fuseHome + '\\quickstarts\\cxf\\secure-rest\\pom.xml'
-    }
     // TODO remove --fail-never after custom is removed from top-level pom, post 6.3 067
     maven("--file ${fuseHome}/quickstarts/pom.xml --fail-never clean install")
 
