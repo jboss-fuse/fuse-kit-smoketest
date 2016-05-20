@@ -35,8 +35,16 @@ public class CreateChildContainerTest extends SmokeTestBase {
     }
 
     /**
-     * Create a child container based on the example-camel-mq profile;  It should contain two routes,
-     * route1 and route2
+     * Create a child container based on the feature-camel and cbr quickstart profile;  Verify that it contains
+     * cbr-route, and check the response of cambel:route-info on cbr-route
+     *
+     * To reproduce manually, do the following:
+     *
+     * container-create-child --profile feature-camel --profile quickstarts-beginner-camel.cbr  root camel1-1463654880913
+     * -- wait for provisioning
+     * container-connect camel1-1463654880913 camel:route-list
+     * container-connect camel1-1463654880913 camel:route-info cbr-route
+     *
      * @throws Exception
      */
     @Test(timeout = 5 * 60 * 1000)
