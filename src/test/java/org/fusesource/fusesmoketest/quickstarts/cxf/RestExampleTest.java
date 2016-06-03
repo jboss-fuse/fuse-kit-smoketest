@@ -29,6 +29,7 @@ public class RestExampleTest extends FuseSmokeTestBase {
 	 *
 	 * @throws Exception
 	 */
+	@Ignore
 	@Test
 	public void testGetCustomer123() throws Exception {
 		URL url = new URL(EXAMPLES_URL_BASE + "/crm/customerservice/customers/123");
@@ -45,6 +46,7 @@ public class RestExampleTest extends FuseSmokeTestBase {
 	 * Test getting product 323 in order 223
 	 * On the server side, it matches the Order's getProduct() method
 	 */
+	@Ignore
 	@Test
 	public void testGetOrders223Product323() throws Exception {
 		URL url = new URL(EXAMPLES_URL_BASE + "/crm/customerservice/orders/223/products/323");
