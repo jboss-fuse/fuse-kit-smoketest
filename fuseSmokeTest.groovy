@@ -39,9 +39,9 @@ try {
     // TODO remove --fail-never after custom is removed from top-level pom, post 6.3 067
     // FIXME!!!! Hack for broken quickstarts pom in 6.3 095
     if (isUnix()) {
-        sh 'sed -i -e \'90,92d;104,114d\' ' + fuseHomeDirectory + '/quickstarts/pom.xml'
+        sh 'sed -i -e \'90,92d;104,114d\' ' + fuseHome + '/quickstarts/pom.xml'
     } else {
-        bat 'sed -i -e \'90,92d;104,114d\' ' + fuseHomeDirectory + '/quickstarts/pom.xml'
+        bat 'sed -i -e \'90,92d;104,114d\' ' + fuseHome + '/quickstarts/pom.xml'
     }
     maven("--file ${fuseHome}/quickstarts/pom.xml --fail-never clean install")
 
