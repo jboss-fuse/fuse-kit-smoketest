@@ -37,6 +37,11 @@ try {
     stage 'Build Quickstarts'
     maven('--version')
     // TODO remove --fail-never after custom is removed from top-level pom, post 6.3 067
+    // FIXME!!!! Hack for broken quickstarts pom in 6.3 095
+        sh 'sed -i -e \'90,92d;104,114d\' ' + fuseHomeDirectory + '/quickstarts/pom.xml'
+    } else {
+        bat 'sed -i -e \'90,92d;104,114d\' ' + fuseHomeDirectory + '/quickstarts/pom.xml'
+    }
     maven("--file ${fuseHome}/quickstarts/pom.xml --fail-never clean install")
 
     stage 'deploy quickstarts'
