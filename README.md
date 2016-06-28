@@ -5,8 +5,7 @@ These tests are intended to be run as part of a Fuse kit smoke test.
  
 To run the quickstart tests, do the following:
 
-0. Set FUSE_HOME to the full path of the Fuse installation, i.e. export FUSE_HOME=/Users/kearls/fuse/jboss-fuse-jboss-fuse-6.3.0.redhat-045/
-1. Set VERSION to the the last part of this, i.e. export VERSION=6.3.0.redhat-045
+1. Set FUSE_HOME to the full path of the Fuse installation, i.e. export FUSE_HOME=/Users/kearls/fuse/jboss-fuse-jboss-fuse-6.3.0.redhat-045/
 2. cd to ${FUSE_HOME}/quickstarts and build all of the quickstarts
 3. In another shell, Run fuse
 4. Run the deployQuickStarts.sh script to deploy the quickstarts

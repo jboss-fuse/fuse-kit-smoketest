@@ -1,13 +1,25 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -x
-if [ -z "$VERSION" ];
+
+#if [ -z "$FUSE_HOME" ]; then export FUSE_HOME=${HOME}/fuse/jboss-fuse-${VERSION};  fi
+if [ -z "$FUSE_HOME" ];
 then
-    echo "VERSION must be set (to something like: 6.2.0.redhat-058 )";
+    echo "FUSE_HOME must be set"
     exit
 fi
 
-if [ -z "$FUSE_HOME" ]; then export FUSE_HOME=${HOME}/fuse/jboss-fuse-${VERSION};  fi
-echo "Using FUSE_HOME: $FUSE_HOME"
+if [ ! -d "$FUSE_HOME" ]; then
+    echo "FUSE_HOME: $FUSE_HOME does not exist"
+    exit
+fi
+
+
+
+VERSION="${FUSE_HOME//*fuse-/}"
+VERSION=$(echo $VERSION | sed 's/\///g')
+
+echo "Using FUSE_HOME: $FUSE_HOME and VERSION $VERSION"
+
 echo Starting at `date`
 
 ${FUSE_HOME}/bin/client -u admin -p admin "osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-cbr/${VERSION}"
