@@ -44,7 +44,6 @@ public class CamelCXFCodeFirstExampleTest {
         return bos.toString();
     }
 
-    @Ignore("ENTESB-5052")
     @Test(timeout = 60 * 1000)
     public void sendRequest() throws Exception {
 
@@ -52,7 +51,7 @@ public class CamelCXFCodeFirstExampleTest {
         /*
          * Set up the URL connection to the web service address
          */
-        URLConnection connection = new URL("http://localhost:8181/cxf/orderCode").openConnection();
+        URLConnection connection = new URL("http://localhost:8181/cxf/order").openConnection();
         connection.setDoInput(true);
         connection.setDoOutput(true);
 

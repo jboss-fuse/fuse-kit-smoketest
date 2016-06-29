@@ -44,7 +44,6 @@ public class CamelCXFContractFirstExampleTest {
         return bos.toString();
     }
 
-    @Ignore("ENTESB-5368")
     @Test
     public void sendRequest() throws Exception {
 
