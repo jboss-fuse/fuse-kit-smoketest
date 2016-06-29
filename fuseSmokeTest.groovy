@@ -51,6 +51,8 @@ try {
     executeClientCommand(fuseHome, 'fabric:create --wait-for-provisioning')
 
     stage 'Other tests'
+    // deploy the camel-cbr quickstart first, the CreateChildContainerTest depends on the profile
+    maven("--file ${fuseHome}/quickstarts/beginner/camel-cbr/pom.xml fabric8:deploy")
     maven('-DFUSE_HOME=' + fuseHome + ' -Dsurefire.rerunFailingTestsCount=2 -Pnoquickstarts clean test')
 } finally {
     stage 'Final shutdown'
