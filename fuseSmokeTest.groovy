@@ -17,6 +17,8 @@ def fuseHome = "jboss-fuse-" + version
 
 env.FUSE_HOME = "${fuseHome}"
 
+currentBuild.description = fuseHome
+
 stage 'cleanup from previous runs'
 if (isUnix()) {
     sh 'pkill -f org.apache.karaf.main.Main || true'  // TODO can we do something similar on windows?
