@@ -1,7 +1,7 @@
 stage 'define tools'
 // Get the tools and override EVs which may be set on the node
 def M2_HOME = tool 'maven-3.3.9'
-def JAVA_HOME = tool 'jdk8'
+def JAVA_HOME = tool 'jdk7'
 env.JAVA_HOME = "${JAVA_HOME}"
 env.M2_HOME = "${M2_HOME}"
 env.PATH = "${M2_HOME}/bin:${JAVA_HOME}/bin:${env.PATH}"
