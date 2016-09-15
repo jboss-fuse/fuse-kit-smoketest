@@ -95,7 +95,10 @@ def downloadAndUnzipKit(downloadUrl, zipFileName) {
 
 def uncommentAdminUserPassword(fuseHomeDirectory) {
     if (isUnix()) {
-        sh 'sed -i \'s/^#admin/admin/g\' ' + fuseHomeDirectory + '/etc/users.properties'
+        // sh 'sed -i \'s/^#admin/admin/g\' ' + fuseHomeDirectory + '/etc/users.properties'
+        // Workaround for AIX
+        sh 'echo "admin=admin,admin,manager,viewer,Monitor, Operator, Maintainer, Deployer, Auditor, Administrator, SuperUser" >> ' + fuseHomeDirectory + '/etc/users.properties'
+
     } else {
         bat 'sed -i \'s/^#admin/admin/g\' ' + fuseHomeDirectory + '/etc/users.properties'
     }
