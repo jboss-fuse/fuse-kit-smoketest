@@ -85,7 +85,7 @@ def cleanup(directoryName) {
 
 def downloadAndUnzipKit(downloadUrl, zipFileName) {
     if (isUnix()) {
-        sh 'wget --no-verbose ' + downloadUrl
+        sh 'wget --no-verbose --no-check-certificate ' + downloadUrl
         sh 'unzip -q ' + zipFileName
     } else {
         bat 'wget --no-verbose --no-check-certificate ' + downloadUrl
