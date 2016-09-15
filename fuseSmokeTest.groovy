@@ -50,7 +50,7 @@ try {
         maven('-DFUSE_HOME=' + fuseHome + ' -Pquickstarts clean test')
     }
     stage 'Create a fabric'
-    executeClientCommand(fuseHome, 'fabric:create --wait-for-provisioning')
+    executeClientCommand(fuseHome, 'fabric:create --wait-for-provisioning --bootstrap-timeout 300000')
 
     stage 'Other tests'
     // deploy the camel-cbr quickstart first, the CreateChildContainerTest depends on the profile
