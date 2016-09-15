@@ -33,7 +33,6 @@ try {
     // Start the broker
     stage 'starting broker'
     startBroker(fuseHome)
-    sleep 120
 
     // Build and deploy the quickstarts
     stage 'Build Quickstarts'
