@@ -17,6 +17,9 @@ def fuseHome = "jboss-fuse-" + version
 
 env.FUSE_HOME = "${fuseHome}"
 
+// Update the bom version TODO make sure this works on windows
+updateFuseBomVersion(version)
+
 currentBuild.description = fuseHome
 
 stage 'cleanup from previous runs'
@@ -101,6 +104,17 @@ def uncommentAdminUserPassword(fuseHomeDirectory) {
 
     } else {
         bat 'sed -i \'s/^#admin/admin/g\' ' + fuseHomeDirectory + '/etc/users.properties'
+    }
+}
+
+def updateFuseBomVersion(version) {
+    if (isUnix()) {
+        sh "sed -i 's/<jboss.fuse.bom.version>.*<\\/jboss.fuse.bom.version>/<jboss.fuse.bom.version>${version}<\\/jboss.fuse.bom.version>/g' pom.xml"
+        sh 'grep bom.version pom.xml'
+
+    } else {
+        bat "sed -i 's/<jboss.fuse.bom.version>.*<\\/jboss.fuse.bom.version>/<jboss.fuse.bom.version>${version}<\\/jboss.fuse.bom.version>/g' pom.xml"
+        bat 'grep bom.version pom.xml'
     }
 }
 
