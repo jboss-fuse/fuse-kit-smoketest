@@ -8,12 +8,8 @@
     <artifactId>fuse-kit-smoketests</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-
-
-
-
     <properties>
-        <jboss.fuse.bom.version>6.3.0.redhat-215</jboss.fuse.bom.version>
+        <jboss.fuse.bom.version>6.3.0.redhat-216</jboss.fuse.bom.version>
         <maven.compiler.plugin.version>3.5.1</maven.compiler.plugin.version>
 
         <apache.commons.io.version>1.3.2</apache.commons.io.version>
