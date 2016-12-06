@@ -113,8 +113,9 @@ def updateFuseBomVersion(version) {
         sh 'grep bom.version pom.xml'
 
     } else {
-        bat "sed -i 's/<jboss.fuse.bom.version>.*<\\/jboss.fuse.bom.version>/<jboss.fuse.bom.version>${version}<\\/jboss.fuse.bom.version>/g' pom.xml"
-        bat 'grep bom.version pom.xml'
+        // FIXME !!!!!
+        //bat 'sed -i \'s/<jboss.fuse.bom.version>.*<\\/jboss.fuse.bom.version>/<jboss.fuse.bom.version>${version}<\\/jboss.fuse.bom.version>/g\' pom.xml'
+        //bat 'grep bom.version pom.xml'
     }
 }
 
