@@ -49,7 +49,7 @@ try {
     if (isUnix()) {
         maven('-DFUSE_HOME=${PWD}/${FUSE_HOME} -Dsurefire.rerunFailingTestsCount=2 -Pquickstarts clean test')
     } else {
-        maven('-DFUSE_HOME=' + fuseHome + ' -Pquickstarts clean test')
+        maven('-DFUSE_HOME=' + fuseHome + ' -Pquickstarts -Djboss.fuse.bom.version=' + version + ' clean test')
     }
     stage 'Create a fabric'
     executeClientCommand(fuseHome, 'fabric:create --wait-for-provisioning --bootstrap-timeout 300000')
@@ -57,7 +57,7 @@ try {
     stage 'Other tests'
     // deploy the camel-cbr quickstart first, the CreateChildContainerTest depends on the profile
     maven("--file ${fuseHome}/quickstarts/beginner/camel-cbr/pom.xml fabric8:deploy")
-    maven('-DFUSE_HOME=' + fuseHome + ' -Dsurefire.rerunFailingTestsCount=2 -Pnoquickstarts clean test')
+    maven('-DFUSE_HOME=' + fuseHome + ' -Dsurefire.rerunFailingTestsCount=2 -Pnoquickstarts -Djboss.fuse.bom.version=' + version + ' clean test')
 } finally {
     stage 'Final shutdown'
     try {
@@ -70,9 +70,6 @@ try {
 
     if (!isUnix()) {
         build job: 'Reboot_windows', quietPeriod: 30, wait: false
-    } else {
-        //stage 'clear out workspace'
-        //deleteDir()  //Looks like we can't do this on windows  FIXME on unix do this here or in caller
     }
 }
 
@@ -112,10 +109,6 @@ def updateFuseBomVersion(version) {
         sh "sed -i 's/<jboss.fuse.bom.version>.*<\\/jboss.fuse.bom.version>/<jboss.fuse.bom.version>${version}<\\/jboss.fuse.bom.version>/g' pom.xml"
         sh 'grep bom.version pom.xml'
 
-    } else {
-        // FIXME !!!!!
-        //bat 'sed -i \'s/<jboss.fuse.bom.version>.*<\\/jboss.fuse.bom.version>/<jboss.fuse.bom.version>${version}<\\/jboss.fuse.bom.version>/g\' pom.xml'
-        //bat 'grep bom.version pom.xml'
     }
 }
 
