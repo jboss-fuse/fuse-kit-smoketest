@@ -17,9 +17,6 @@ def fuseHome = "jboss-fuse-" + version
 
 env.FUSE_HOME = "${fuseHome}"
 
-// Update the bom version TODO make sure this works on windows
-updateFuseBomVersion(version)
-
 currentBuild.description = fuseHome
 
 stage 'cleanup from previous runs'
@@ -47,9 +44,9 @@ try {
 
     stage 'Quickstart tests'
     if (isUnix()) {
-        maven('-DFUSE_HOME=${PWD}/${FUSE_HOME} -Dsurefire.rerunFailingTestsCount=2 -Pquickstarts clean test')
+        maven('-DFUSE_HOME=${PWD}/${FUSE_HOME} -Pquickstarts -Dsurefire.rerunFailingTestsCount=2 -Djboss.fuse.bom.version=' + version + ' clean test')
     } else {
-        maven('-DFUSE_HOME=' + fuseHome + ' -Pquickstarts -Djboss.fuse.bom.version=' + version + ' clean test')
+        maven('-DFUSE_HOME=' + fuseHome + ' -Pquickstarts -Dsurefire.rerunFailingTestsCount=2 -Djboss.fuse.bom.version=' + version + ' clean test')
     }
     stage 'Create a fabric'
     executeClientCommand(fuseHome, 'fabric:create --wait-for-provisioning --bootstrap-timeout 300000')
