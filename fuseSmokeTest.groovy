@@ -23,7 +23,7 @@ stage 'cleanup from previous runs'
 if (isUnix()) {
     sh 'pkill -f org.apache.karaf.main.Main || true'  // TODO can we do something similar on windows?
 }
-cleanup("jboss-fuse*")
+cleanup("esb-project-*")
 
 stage 'download kit'
 downloadAndUnzipKit(FUSE_KIT_URL, zipFileName)
