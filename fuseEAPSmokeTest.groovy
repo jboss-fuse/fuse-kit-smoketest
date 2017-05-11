@@ -7,15 +7,15 @@ env.M2_HOME = "${M2_HOME}"
 env.PATH = "${M2_HOME}/bin:${JAVA_HOME}/bin:${env.PATH}"
 
 // Get the zipfile name and home directory from the full download URL
-env.FUSE_KIT_URL = "${FUSE_KIT_URL}"
+env.FUSE_INSTALLER_URL = "${FUSE_INSTALLER_URL}"
 env.WILDFLY_KIT_URL = "${WILDFLY_KIT_URL}"
 
 def wildflyLastSlash = WILDFLY_KIT_URL.lastIndexOf("/");
 def wildflyZipFileName = WILDFLY_KIT_URL.substring(lastSlash + 1, WILDFLY_KIT_URL.length());
 
 
-def lastSlash = FUSE_KIT_URL.lastIndexOf("/");
-def jarFileName = FUSE_KIT_URL.substring(lastSlash + 1, FUSE_KIT_URL.length());
+def lastSlash = FUSE_INSTALLER_URL.lastIndexOf("/");
+def jarFileName = FUSE_INSTALLER_URL.substring(lastSlash + 1, FUSE_INSTALLER_URL.length());
 
 //def temp = zipFileName.substring(0, zipFileName.length() - 4); // strip off .zip
 //def version = temp.substring("esb-project-7.0.0.fuse-".size());
@@ -33,7 +33,7 @@ cleanup("jboss-eap-7.1")
 
 stage 'download kit'
 downloadAndUnzipKit(WILDFLY_KIT_URL, wildflyZipFileName)
-downloadAndRunFuseInstaller(FUSE_KIT_URL, zipFileName, fuseHome)
+downloadAndRunFuseInstaller(FUSE_INSTALLER_URL, zipFileName, fuseHome)
 //uncommentAdminUserPassword(fuseHome)
 
 try {
