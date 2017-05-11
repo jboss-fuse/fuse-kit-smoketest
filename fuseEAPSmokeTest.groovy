@@ -32,7 +32,7 @@ cleanup("jboss-eap-7.1")
 
 stage 'download kit'
 downloadAndUnzipKit(WILDFLY_KIT_URL, wildflyZipFileName)
-downloadAndRunFuseInstaller(FUSE_INSTALLER_URL, zipFileName, fuseHome)
+downloadAndRunFuseInstaller(FUSE_INSTALLER_URL, jarFileName, fuseHome)
 //uncommentAdminUserPassword(fuseHome)
 
 try {
