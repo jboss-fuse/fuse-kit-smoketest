@@ -11,8 +11,7 @@ env.FUSE_INSTALLER_URL = "${FUSE_INSTALLER_URL}"
 env.WILDFLY_KIT_URL = "${WILDFLY_KIT_URL}"
 
 def wildflyLastSlash = WILDFLY_KIT_URL.lastIndexOf("/");
-def wildflyZipFileName = WILDFLY_KIT_URL.substring(lastSlash + 1, WILDFLY_KIT_URL.length());
-
+def wildflyZipFileName = WILDFLY_KIT_URL.substring(wildflyLastSlash + 1, WILDFLY_KIT_URL.length());
 
 def lastSlash = FUSE_INSTALLER_URL.lastIndexOf("/");
 def jarFileName = FUSE_INSTALLER_URL.substring(lastSlash + 1, FUSE_INSTALLER_URL.length());
