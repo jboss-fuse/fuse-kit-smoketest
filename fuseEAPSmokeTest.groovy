@@ -92,6 +92,7 @@ def downloadAndRunFuseInstaller(downloadUrl, zipFileName, fuseHome) {
         sh 'curl --remote-name --insecure --silent ' + downloadUrl
         sleep 20
         echo pwd()
+        sh "ls -ltr"
         sh 'java -jar ' + pwd() + "/" + zipFileName + ' ' + fuseHome
     } else {
         bat 'wget --no-verbose --no-check-certificate ' + downloadUrl
