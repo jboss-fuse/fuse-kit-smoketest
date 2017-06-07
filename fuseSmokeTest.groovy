@@ -13,7 +13,7 @@ def lastSlash = FUSE_KIT_URL.lastIndexOf("/");
 def zipFileName = FUSE_KIT_URL.substring(lastSlash + 1, FUSE_KIT_URL.length());
 def temp = zipFileName.substring(0, zipFileName.length() - 4); // strip off .zip
 def version = temp.substring("jboss-fuse-karaf-7.0.0.fuse-".size());
-def fuseHome = "jboss-fuse-karaf-" + version
+def fuseHome = "jboss-fuse-karaf-7.0.0.fuse-" + version
 
 env.FUSE_HOME = "${fuseHome}"
 
