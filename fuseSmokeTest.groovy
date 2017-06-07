@@ -38,7 +38,7 @@ try {
     // Build and deploy the quickstarts
     stage 'Build Quickstarts'
     maven('--version')
-    maven("--file ${fuseHome}/quickstarts/pom.xml --fail-never clean install")
+    maven("--file ${fuseHome}/quickstarts/beginner/pom.xml --fail-never clean install")
 
     stage 'deploy quickstarts'
     deployQuickstarts(fuseHome, version)
