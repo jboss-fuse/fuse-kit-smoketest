@@ -143,38 +143,38 @@ def maven(command) {
 }
 
 def deployQuickstarts(fuseHomeDirectory, version) {
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-cbr/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-eips/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-errorhandler/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-log/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/beginner-camel-log-wiki/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-cbr/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-eips/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-errorhandler/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-log/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-log-wiki/' + version)
 
     executeClientCommand(fuseHomeDirectory, 'features:install cxf')
     executeClientCommand(fuseHomeDirectory, 'features:install fabric-cxf')
     executeClientCommand(fuseHomeDirectory, 'features:install cxf-ws-security')
 
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-code-first/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-camel-cxf-contract-first/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-rest/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-secure-rest/' + version)   // FIXME
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-soap/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/cxf-secure-soap/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-camel-cxf-code-first/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-camel-cxf-contract-first/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-rest/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-secure-rest/' + version)   // FIXME
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-soap/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-secure-soap/' + version)
 
     executeClientCommand(fuseHomeDirectory, 'features:install camel-box')
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-box/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/camel-box/' + version)
     executeClientCommand(fuseHomeDirectory, 'features:install camel-linkedin')
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-linkedin/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/camel-linkedin/' + version)
     executeClientCommand(fuseHomeDirectory, 'features:install camel-salesforce')
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-salesforce/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/camel-salesforce/' + version)
 
 /*  FIXME check bugs and see which of these should still be working
     ###### ${FUSE_HOME}/bin/client osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-amq/${VERSION}"
 
     ${FUSE_HOME}/bin/client features:install camel-olingo2"
     #ENTESB-5048
-    #${FUSE_HOME}/bin/client osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-odata/${VERSION}"
+    #${FUSE_HOME}/bin/client osgi:install -s mvn:org.jboss.fuse.quickstarts/camel-odata/${VERSION}"
 
     #####${FUSE_HOME}/bin/client features:install camel-sap"
-    #####${FUSE_HOME}/bin/client osgi:install -s mvn:org.jboss.quickstarts.fuse/camel-sap/${VERSION}"
+    #####${FUSE_HOME}/bin/client osgi:install -s mvn:org.jboss.fuse.quickstarts/camel-sap/${VERSION}"
 */
 }
