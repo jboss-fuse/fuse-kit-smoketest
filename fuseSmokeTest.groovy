@@ -1,7 +1,7 @@
 stage 'define tools'
 // Get the tools and override EVs which may be set on the node
 def M2_HOME = tool 'maven-3.3.9'
-def JAVA_HOME = tool 'jdk7'
+def JAVA_HOME = tool 'jdk8'
 env.JAVA_HOME = "${JAVA_HOME}"
 env.M2_HOME = "${M2_HOME}"
 env.PATH = "${M2_HOME}/bin:${JAVA_HOME}/bin:${env.PATH}"
@@ -12,8 +12,8 @@ env.FUSE_KIT_URL = "${FUSE_KIT_URL}"
 def lastSlash = FUSE_KIT_URL.lastIndexOf("/");
 def zipFileName = FUSE_KIT_URL.substring(lastSlash + 1, FUSE_KIT_URL.length());
 def temp = zipFileName.substring(0, zipFileName.length() - 4); // strip off .zip
-def version = temp.substring("esb-project-7.0.0.fuse-".size());
-def fuseHome = "esb-project-7.0.0.fuse-" + version
+def version = temp.substring("jboss-fuse-karaf-7.0.0.fuse-".size());
+def fuseHome = "jboss-fuse-karaf-7.0.0.fuse-" + version
 
 env.FUSE_HOME = "${fuseHome}"
 
@@ -23,7 +23,7 @@ stage 'cleanup from previous runs'
 if (isUnix()) {
     sh 'pkill -f org.apache.karaf.main.Main || true'  // TODO can we do something similar on windows?
 }
-cleanup("esb-project-*")
+cleanup("jboss-fuse-karaf-7.0.0.fuse-*")
 
 stage 'download kit'
 downloadAndUnzipKit(FUSE_KIT_URL, zipFileName)
@@ -38,7 +38,7 @@ try {
     // Build and deploy the quickstarts
     stage 'Build Quickstarts'
     maven('--version')
-    maven("--file ${fuseHome}/quickstarts/pom.xml --fail-never clean install")
+    maven("--file ${fuseHome}/quickstarts/beginner/pom.xml --fail-never clean install")
 
     stage 'deploy quickstarts'
     deployQuickstarts(fuseHome, version)
