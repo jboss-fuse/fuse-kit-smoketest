@@ -12,7 +12,7 @@ env.WILDFLY_KIT_URL = "${WILDFLY_KIT_URL}"
 
 if (FUSE_INSTALLER_URL.equalsIgnoreCase("LATEST") {
    def response = httpRequest "http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf/"
-   echo response
+   echo "Response " + response
 }
 
 def wildflyLastSlash = WILDFLY_KIT_URL.lastIndexOf("/");
