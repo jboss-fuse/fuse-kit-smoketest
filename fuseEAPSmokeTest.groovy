@@ -58,7 +58,8 @@ try {
         echo 'Ignoring exception on server shutdown'
     }
     stage 'shutdown complete'
-
+    // FIXME!!!! step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: '**/target/*-reports/*.xml']
+    
     if (!isUnix()) {
         build job: 'Reboot_windows', quietPeriod: 30, wait: false
     }
@@ -134,11 +135,11 @@ def maven(command) {
 }
 
 def deployQuickstarts(fuseHome) {
-    maven("--file ${fuseHome}/quickstarts/camel/camel-cdi/pom.xml --fail-never -Pdeploy install")
-    maven("--file ${fuseHome}/quickstarts/camel/camel-cxf-jaxrs/pom.xml --fail-never -Pdeploy install")
-    maven("--file ${fuseHome}/quickstarts/camel/camel-cxf-jaxws/pom.xml --fail-never -Pdeploy install")
-    maven("--file ${fuseHome}/quickstarts/camel/camel-jpa/pom.xml --fail-never -Pdeploy install")
-    maven("--file ${fuseHome}/quickstarts/camel/camel-jpa-spring/pom.xml --fail-never -Pdeploy install")
-    maven("--file ${fuseHome}/quickstarts/camel/camel-mail/pom.xml --fail-never -Pdeploy install")
-    maven("--file ${fuseHome}/quickstarts/camel/camel-rest-swagger/pom.xml --fail-never -Pdeploy install")
+    maven("--file ${fuseHome}/camel-cdi/pom.xml --fail-never -Pdeploy install")
+    maven("--file ${fuseHome}/camel-cxf-jaxrs/pom.xml --fail-never -Pdeploy install")
+    maven("--file ${fuseHome}/camel-cxf-jaxws/pom.xml --fail-never -Pdeploy install")
+    maven("--file ${fuseHome}/camel-jpa/pom.xml --fail-never -Pdeploy install")
+    maven("--file ${fuseHome}/camel-jpa-spring/pom.xml --fail-never -Pdeploy install")
+    maven("--file ${fuseHome}/camel-mail/pom.xml --fail-never -Pdeploy install")
+    maven("--file ${fuseHome}/camel-rest-swagger/pom.xml --fail-never -Pdeploy install")
 }
