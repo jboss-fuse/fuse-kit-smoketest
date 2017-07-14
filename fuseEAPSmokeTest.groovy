@@ -13,7 +13,7 @@ if (FUSE_INSTALLER_URL.equalsIgnoreCase("LATEST")) {
     def metadataUrl = 'http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf/maven-metadata.xml'
     def metadata = new XmlSlurper().parse(metadataUrl)
     def latest = metadata.versioning.latest.text()
-    def urlLocation = "http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf/${latest}/${latest}.jar"
+    def urlLocation = "http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf/${latest}/jboss-fuse-karaf-${latest}.jar"
     env.FUSE_INSTALLER_URL = "${urlLocation}"
     echo "FUSE INSTALLER URL " + FUSE_INSTALLER_URL
 } else {
