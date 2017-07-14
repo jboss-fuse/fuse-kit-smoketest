@@ -10,6 +10,11 @@ env.PATH = "${M2_HOME}/bin:${JAVA_HOME}/bin:${env.PATH}"
 env.FUSE_INSTALLER_URL = "${FUSE_INSTALLER_URL}"
 env.WILDFLY_KIT_URL = "${WILDFLY_KIT_URL}"
 
+if (FUSE_INSTALLER_URL.equalsIgnoreCase("LATEST") {
+   def response = httpRequest "http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf/"
+   echo response
+}
+
 def wildflyLastSlash = WILDFLY_KIT_URL.lastIndexOf("/");
 def wildflyZipFileName = WILDFLY_KIT_URL.substring(wildflyLastSlash + 1, WILDFLY_KIT_URL.length());
 
@@ -33,6 +38,7 @@ cleanup("jboss-eap-7.1")
 stage 'download kit'
 downloadAndUnzipKit(WILDFLY_KIT_URL, wildflyZipFileName)
 downloadAndRunFuseInstaller(FUSE_INSTALLER_URL, jarFileName, fuseHome)
+//uncommentAdminUserPassword(fuseHome)
 
 try {
     // Build and deploy the quickstarts
@@ -45,8 +51,8 @@ try {
     sleep 120
 
     stage 'deploy quickstarts'
-    deployQuickstarts("${fuseHome}/quickstarts/camel")
     maven('--version')
+    maven("--file ${fuseHome}/quickstarts/camel/pom.xml --fail-never -Pdeploy install")
 
 } finally {
     stage 'Final shutdown'
@@ -59,7 +65,7 @@ try {
     }
     stage 'shutdown complete'
     // FIXME!!!! step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: '**/target/*-reports/*.xml']
-    
+
     if (!isUnix()) {
         build job: 'Reboot_windows', quietPeriod: 30, wait: false
     }
@@ -118,6 +124,22 @@ def updateFuseBomVersion(version) {
     }
 }
 
+def startBroker(fuseHomeDirectory) {
+    if (isUnix()) {
+        sh './' + fuseHomeDirectory + '/bin/start'
+    } else {
+        bat fuseHomeDirectory + '\\bin\\start'
+    }
+}
+
+def stopBroker(fuseHomeDirectory) {
+    if (isUnix()) {
+        sh './' + fuseHomeDirectory + '/bin/stop || true'  // TODO ignore errors only on final shutdown
+    } else {
+        bat fuseHomeDirectory + '\\bin\\stop'
+    }
+}
+
 def executeClientCommand(fuseHomeDirectory, command) {  // TODO always assume -u admin -p admin?
     if (isUnix()) {
         sh './' + fuseHomeDirectory + '/bin/client -u admin -p admin \"' + command + '\"'
@@ -134,12 +156,29 @@ def maven(command) {
     }
 }
 
-def deployQuickstarts(fuseHome) {
-    maven("--file ${fuseHome}/camel-cdi/pom.xml --fail-never -Pdeploy install")
-    maven("--file ${fuseHome}/camel-cxf-jaxrs/pom.xml --fail-never -Pdeploy install")
-    maven("--file ${fuseHome}/camel-cxf-jaxws/pom.xml --fail-never -Pdeploy install")
-    maven("--file ${fuseHome}/camel-jpa/pom.xml --fail-never -Pdeploy install")
-    maven("--file ${fuseHome}/camel-jpa-spring/pom.xml --fail-never -Pdeploy install")
-    maven("--file ${fuseHome}/camel-mail/pom.xml --fail-never -Pdeploy install")
-    maven("--file ${fuseHome}/camel-rest-swagger/pom.xml --fail-never -Pdeploy install")
+def deployQuickstarts(fuseHomeDirectory, version) {
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-cbr/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-eips/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-errorhandler/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-log/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-log-wiki/' + version)
+
+    executeClientCommand(fuseHomeDirectory, 'features:install cxf')
+    executeClientCommand(fuseHomeDirectory, 'features:install fabric-cxf')
+    executeClientCommand(fuseHomeDirectory, 'features:install cxf-ws-security')
+
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-camel-cxf-code-first/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-camel-cxf-contract-first/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-rest/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-secure-rest/' + version)   // FIXME
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-soap/' + version)
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-secure-soap/' + version)
+
+    executeClientCommand(fuseHomeDirectory, 'features:install camel-box')
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/camel-box/' + version)
+    executeClientCommand(fuseHomeDirectory, 'features:install camel-linkedin')
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/camel-linkedin/' + version)
+    executeClientCommand(fuseHomeDirectory, 'features:install camel-salesforce')
+    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/camel-salesforce/' + version)
+
 }
