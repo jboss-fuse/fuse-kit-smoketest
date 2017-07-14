@@ -46,8 +46,8 @@ try {
     sleep 120
 
     stage 'deploy quickstarts'
+    deployQuickstarts("${fuseHome}/quickstarts/camel")
     maven('--version')
-    maven("--file ${fuseHome}/quickstarts/camel/pom.xml --fail-never -Pdeploy install")
 
 } finally {
     stage 'Final shutdown'
@@ -151,29 +151,12 @@ def maven(command) {
     }
 }
 
-def deployQuickstarts(fuseHomeDirectory, version) {
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-cbr/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-eips/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-errorhandler/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-log/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-log-wiki/' + version)
-
-    executeClientCommand(fuseHomeDirectory, 'features:install cxf')
-    executeClientCommand(fuseHomeDirectory, 'features:install fabric-cxf')
-    executeClientCommand(fuseHomeDirectory, 'features:install cxf-ws-security')
-
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-camel-cxf-code-first/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-camel-cxf-contract-first/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-rest/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-secure-rest/' + version)   // FIXME
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-soap/' + version)
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/cxf-secure-soap/' + version)
-
-    executeClientCommand(fuseHomeDirectory, 'features:install camel-box')
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/camel-box/' + version)
-    executeClientCommand(fuseHomeDirectory, 'features:install camel-linkedin')
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/camel-linkedin/' + version)
-    executeClientCommand(fuseHomeDirectory, 'features:install camel-salesforce')
-    executeClientCommand(fuseHomeDirectory, 'osgi:install -s mvn:org.jboss.fuse.quickstarts/camel-salesforce/' + version)
-
+def deployQuickstarts(fuseHomeDirectory) {
+    maven("--file ${fuseHome}/quickstarts/camel/camel-cdi/pom.xml --fail-never -Pdeploy install")
+    maven("--file ${fuseHome}/quickstarts/camel/camel-cxf-jaxrs/pom.xml --fail-never -Pdeploy install")
+    maven("--file ${fuseHome}/quickstarts/camel/camel-cxf-jaxws/pom.xml --fail-never -Pdeploy install")
+    maven("--file ${fuseHome}/quickstarts/camel/camel-jpa/pom.xml --fail-never -Pdeploy install")
+    maven("--file ${fuseHome}/quickstarts/camel/camel-jpa-spring/pom.xml --fail-never -Pdeploy install")
+    maven("--file ${fuseHome}/quickstarts/camel/camel-mail/pom.xml --fail-never -Pdeploy install")
+    maven("--file ${fuseHome}/quickstarts/camel/camel-rest-swagger/pom.xml --fail-never -Pdeploy install")
 }
