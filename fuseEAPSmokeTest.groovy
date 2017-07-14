@@ -7,7 +7,6 @@ env.M2_HOME = "${M2_HOME}"
 env.PATH = "${M2_HOME}/bin:${JAVA_HOME}/bin:${env.PATH}"
 
 // Get the zipfile name and home directory from the full download URL
-env.FUSE_INSTALLER_URL = "${FUSE_INSTALLER_URL}"
 env.WILDFLY_KIT_URL = "${WILDFLY_KIT_URL}"
 
 if (FUSE_INSTALLER_URL.equalsIgnoreCase("LATEST")) {
@@ -15,9 +14,11 @@ if (FUSE_INSTALLER_URL.equalsIgnoreCase("LATEST")) {
     def metadata = new XmlSlurper().parse(metadataUrl)
     def latest = metadata.versioning.latest.text()
     echo "LATEST " + latest
-    env.FUSE_INSTALLER_URL = 'http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf/' + latest + "/"
+    env.FUSE_INSTALLER_URL = "http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf/" + latest + "/"
         + latest + ".jar"
     echo "FUSE INSTALLER URL " + FUSE_INSTALLER_URL
+} else {
+    env.FUSE_INSTALLER_URL = "${FUSE_INSTALLER_URL}"
 }
 
 def wildflyLastSlash = WILDFLY_KIT_URL.lastIndexOf("/");
