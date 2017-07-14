@@ -33,7 +33,6 @@ cleanup("jboss-eap-7.1")
 stage 'download kit'
 downloadAndUnzipKit(WILDFLY_KIT_URL, wildflyZipFileName)
 downloadAndRunFuseInstaller(FUSE_INSTALLER_URL, jarFileName, fuseHome)
-//uncommentAdminUserPassword(fuseHome)
 
 try {
     // Build and deploy the quickstarts
@@ -59,7 +58,6 @@ try {
         echo 'Ignoring exception on server shutdown'
     }
     stage 'shutdown complete'
-    // FIXME!!!! step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: '**/target/*-reports/*.xml']
 
     if (!isUnix()) {
         build job: 'Reboot_windows', quietPeriod: 30, wait: false
@@ -119,22 +117,6 @@ def updateFuseBomVersion(version) {
     }
 }
 
-def startBroker(fuseHomeDirectory) {
-    if (isUnix()) {
-        sh './' + fuseHomeDirectory + '/bin/start'
-    } else {
-        bat fuseHomeDirectory + '\\bin\\start'
-    }
-}
-
-def stopBroker(fuseHomeDirectory) {
-    if (isUnix()) {
-        sh './' + fuseHomeDirectory + '/bin/stop || true'  // TODO ignore errors only on final shutdown
-    } else {
-        bat fuseHomeDirectory + '\\bin\\stop'
-    }
-}
-
 def executeClientCommand(fuseHomeDirectory, command) {  // TODO always assume -u admin -p admin?
     if (isUnix()) {
         sh './' + fuseHomeDirectory + '/bin/client -u admin -p admin \"' + command + '\"'
@@ -151,7 +133,7 @@ def maven(command) {
     }
 }
 
-def deployQuickstarts(fuseHomeDirectory) {
+def deployQuickstarts(fuseHome) {
     maven("--file ${fuseHome}/quickstarts/camel/camel-cdi/pom.xml --fail-never -Pdeploy install")
     maven("--file ${fuseHome}/quickstarts/camel/camel-cxf-jaxrs/pom.xml --fail-never -Pdeploy install")
     maven("--file ${fuseHome}/quickstarts/camel/camel-cxf-jaxws/pom.xml --fail-never -Pdeploy install")
