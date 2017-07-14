@@ -10,7 +10,7 @@ env.PATH = "${M2_HOME}/bin:${JAVA_HOME}/bin:${env.PATH}"
 env.FUSE_INSTALLER_URL = "${FUSE_INSTALLER_URL}"
 env.WILDFLY_KIT_URL = "${WILDFLY_KIT_URL}"
 
-if (FUSE_INSTALLER_URL.equalsIgnoreCase("LATEST") {
+if (FUSE_INSTALLER_URL.equalsIgnoreCase("LATEST")) {
    def response = httpRequest "http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf/"
    echo "Response " + response
 }
