@@ -10,10 +10,10 @@ env.PATH = "${M2_HOME}/bin:${JAVA_HOME}/bin:${env.PATH}"
 env.WILDFLY_KIT_URL = "${WILDFLY_KIT_URL}"
 
 if (FUSE_INSTALLER_URL.equalsIgnoreCase("LATEST")) {
-    def metadataUrl = 'http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf/maven-metadata.xml'
+    def metadataUrl = 'http://origin-repository.jboss.org/nexus/content/groups/ea/com/redhat/fuse/eap/fuse-eap-installer/maven-metadata.xml'
     def metadata = new XmlSlurper().parse(metadataUrl)
     def latest = metadata.versioning.latest.text()
-    def urlLocation = "http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf/${latest}/jboss-fuse-karaf-${latest}.jar"
+    def urlLocation = "http://origin-repository.jboss.org/nexus/content/groups/ea/com/redhat/fuse/eap/fuse-eap-installer/${latest}/fuse-eap-installer-${latest}.jar"
     env.FUSE_INSTALLER_URL = "${urlLocation}"
     echo "FUSE INSTALLER URL " + FUSE_INSTALLER_URL
 } else {
