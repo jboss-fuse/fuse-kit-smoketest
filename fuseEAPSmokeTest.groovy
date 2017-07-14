@@ -42,9 +42,12 @@ try {
     maven("--file ${fuseHome}/quickstarts/camel/pom.xml --fail-never clean install")
 
     stage 'Start Fuse EAP server'
+    def cdir = os.getcwd()
+    os.chdir("jboss-eap-7.1")
     sh("bin/standalone.sh -c standalone-full.xml &")
     sleep 120
 
+    os.chdir(cdir)
     stage 'deploy quickstarts'
     maven('--version')
     maven("--file ${fuseHome}/quickstarts/camel/pom.xml --fail-never -Pdeploy install")
