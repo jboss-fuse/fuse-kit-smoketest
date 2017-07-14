@@ -11,7 +11,7 @@ env.FUSE_INSTALLER_URL = "${FUSE_INSTALLER_URL}"
 env.WILDFLY_KIT_URL = "${WILDFLY_KIT_URL}"
 
 if (FUSE_INSTALLER_URL.equalsIgnoreCase("LATEST")) {
-    def FUSE_INSTALLER_REDHAT = 'http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf/maven-metadata.xml'
+    def metadataUrl = 'http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf/maven-metadata.xml'
     def metadata = new XmlSlurper().parse(metadataUrl)
     def latest = metadata.versioning.latest.text()
     FUSE_INSTALLER_URL = 'http://origin-repository.jboss.org/nexus/content/groups/ea/org/jboss/fuse/jboss-fuse-karaf/' + latest + "/"
