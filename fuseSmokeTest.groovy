@@ -12,7 +12,8 @@ env.FUSE_KIT_URL = "${FUSE_KIT_URL}"
 def lastSlash = FUSE_KIT_URL.lastIndexOf("/");
 def zipFileName = FUSE_KIT_URL.substring(lastSlash + 1, FUSE_KIT_URL.length());
 def temp = zipFileName.substring(0, zipFileName.length() - 4); // strip off .zip
-def version = temp.substring("jboss-fuse-karaf-".size());
+def version = temp.substring("jboss-fuse-karaf-7.0.0.fuse-".size());
+def quickstartVersion = temp.substring("jboss-fuse-karaf-".size());
 def fuseHome = "jboss-fuse-karaf-7.0.0.fuse-" + version
 
 env.FUSE_HOME = "${fuseHome}"
@@ -41,7 +42,7 @@ try {
     maven("--file ${fuseHome}/quickstarts/beginner/pom.xml --fail-never clean install")
 
     stage 'deploy quickstarts'
-    deployQuickstarts(fuseHome, version)
+    deployQuickstarts(fuseHome, quickstartVersion)
 
     stage 'Quickstart tests'
     if (isUnix()) {
