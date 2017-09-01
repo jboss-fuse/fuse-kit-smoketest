@@ -34,7 +34,7 @@ public class SoapExampleTest extends FuseSmokeTestBase {
 		InputStream is = urlConnection.getInputStream();
 		String response = getStringFromInputStream(is);
         LOG.info("Response: " + response);
-		String expectedResponse = "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><ns2:sayHiResponse xmlns:ns2=\"http://soap.quickstarts.fabric8.io/\"><return>Hello John Doe</return></ns2:sayHiResponse></soap:Body></soap:Envelope>";
+		String expectedResponse = "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Body><ns2:sayHiResponse xmlns:ns2=\"http://soap.cxf.quickstarts.fuse.jboss.org/\"><return>Hello John Doe</return></ns2:sayHiResponse></soap:Body></soap:Envelope>";
         assertEquals(expectedResponse, response);
 	}
 

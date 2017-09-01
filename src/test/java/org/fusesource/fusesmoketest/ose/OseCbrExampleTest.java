@@ -45,7 +45,7 @@ public class OseCbrExampleTest extends OSESmokeTestBase {
         // Copy the input files here, we need sudo because of openshift file protections
         String gearUUID = getOpenShiftGearUuid(testContainerName);
         String quickstartDataDirectory = "/var/lib/openshift/" + gearUUID
-                + "/fuse/container/quickstarts/beginner/camel-cbr/src/main/fabric8/data/";
+                + "/fuse/container/quickstarts/beginner/camel-cbr/src/main/fuse/data/";
         String quickStartWorkInputDirectory = "/var/lib/openshift/" + gearUUID + "/fuse/container/work/cbr/input/";
         for (int i=1; i <=5; i++) {
             String command = "sudo cp " + quickstartDataDirectory + "order" + i + ".xml " + quickStartWorkInputDirectory;

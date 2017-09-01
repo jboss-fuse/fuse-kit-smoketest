@@ -112,6 +112,9 @@
                         <version>${surefire.version}</version>
                         <configuration>
                             <excludes>
+                                <exclude>**/CreateChildContainerTest.java</exclude>
+                                <exclude>**/FabricTest.java</exclude>
+                                <exclude>**/KarafTest.java</exclude>
                                 <exclude>**/quickstarts/*/*.*</exclude>
                                 <exclude>**/ose/*.*</exclude>
                             </excludes>

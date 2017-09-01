@@ -26,7 +26,7 @@ public class CbrExampleTest extends FuseSmokeTestBase {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         FuseSmokeTestBase.setUpBeforeClass();
-        CBR_SOURCE_DATA_DIRECTORY = FUSE_HOME + "quickstarts/beginner/camel-cbr/src/main/fabric8/data";
+        CBR_SOURCE_DATA_DIRECTORY = FUSE_HOME + "quickstarts/beginner/camel-cbr/src/main/fuse/data";
         CBR_WORK_INPUT_DIRECTORY = FUSE_HOME + "work/cbr/input";
         CBR_WORK_OUTPUT_DIRECTORY = FUSE_HOME + "work/cbr/output";
 

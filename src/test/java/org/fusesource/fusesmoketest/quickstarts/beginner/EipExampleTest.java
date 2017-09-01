@@ -26,17 +26,17 @@ public class EipExampleTest extends FuseSmokeTestBase {
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         FuseSmokeTestBase.setUpBeforeClass();
-        EIP_SOURCE_DATA_DIRECTORY = FUSE_HOME + "quickstarts/beginner/camel-eips/src/main/fabric8/data";
+        EIP_SOURCE_DATA_DIRECTORY = FUSE_HOME + "quickstarts/beginner/camel-eips/src/main/fuse/data";
         EIP_WORK_INPUT_DIRECTORY = FUSE_HOME + "work/eip/input";
         EIP_WORK_OUTPUT_DIRECTORY = FUSE_HOME + "work/eip/output";
         EIP_WORK_OUTPUT_DIRECTORY = EIP_WORK_OUTPUT_DIRECTORY.replaceAll("\\\\", "/");
 
-        expectedFileNames.add(EIP_WORK_OUTPUT_DIRECTORY + "/AMER/2012_0003.xml");
-        expectedFileNames.add(EIP_WORK_OUTPUT_DIRECTORY + "/AMER/2012_0005.xml");
-        expectedFileNames.add(EIP_WORK_OUTPUT_DIRECTORY + "/APAC/2012_0020.xml");
-        expectedFileNames.add(EIP_WORK_OUTPUT_DIRECTORY + "/EMEA/2012_0001.xml");
-        expectedFileNames.add(EIP_WORK_OUTPUT_DIRECTORY + "/EMEA/2012_0002.xml");
-        expectedFileNames.add(EIP_WORK_OUTPUT_DIRECTORY + "/EMEA/2012_0004.xml");
+        expectedFileNames.add(EIP_WORK_OUTPUT_DIRECTORY + "/AMER/2017_0003.xml");
+        expectedFileNames.add(EIP_WORK_OUTPUT_DIRECTORY + "/AMER/2017_0005.xml");
+        expectedFileNames.add(EIP_WORK_OUTPUT_DIRECTORY + "/APAC/2017_0020.xml");
+        expectedFileNames.add(EIP_WORK_OUTPUT_DIRECTORY + "/EMEA/2017_0001.xml");
+        expectedFileNames.add(EIP_WORK_OUTPUT_DIRECTORY + "/EMEA/2017_0002.xml");
+        expectedFileNames.add(EIP_WORK_OUTPUT_DIRECTORY + "/EMEA/2017_0004.xml");
     }
 
 

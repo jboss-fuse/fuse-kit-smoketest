@@ -16,7 +16,9 @@ public class CamelLogExampleTest extends FuseSmokeTestBase {
     @Test
     public void camelLogTest() throws Exception {
         int expectedLogMessages = 5;
-        int foundLogMessages = TailLog.tailAndSearchLog(FUSE_HOME + "/data/log/fuse.log", expectedLogMessages, LOG_MESSAGE_DELAY, "Hello from Fabric based Camel route"); // and log-route?
+
+	System.out.println ("== Tailing file " + FUSE_HOME + "/data/log/fuse.log");
+        int foundLogMessages = TailLog.tailAndSearchLog(FUSE_HOME + "/data/log/fuse.log", expectedLogMessages, LOG_MESSAGE_DELAY, "Hello from Fuse based Camel route"); // and log-route?
         assertEquals("Expected " + expectedLogMessages + " log messages", expectedLogMessages, foundLogMessages);
     }
 }
