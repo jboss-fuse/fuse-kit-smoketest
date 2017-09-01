@@ -163,19 +163,19 @@ def deployQuickstarts(fuseHomeDirectory, version) {
     executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/cxf-secure-soap/' + version)
 
     executeClientCommand(fuseHomeDirectory, 'feature:install camel-box')
-    // failing, filed ENTESB-7249
     executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/camel-box/' + version)
     executeClientCommand(fuseHomeDirectory, 'feature:install camel-linkedin')
     executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/camel-linkedin/' + version)
-    executeClientCommand(fuseHomeDirectory, 'feature:install camel-salesforce')
-    executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/camel-salesforce/' + version)
+    
+    //failing, filed ENTESB-7251 
+    //executeClientCommand(fuseHomeDirectory, 'feature:install camel-salesforce')
+    //executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/camel-salesforce/' + version)
+
+    executeClientCommand(fuseHomeDirectory, 'feature:install camel-olingo2')
+    executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/camel-odata/' + version)
 
 /*  FIXME check bugs and see which of these should still be working
     ###### ${FUSE_HOME}/bin/client bundle:install -s mvn:org.jboss.quickstarts.fuse/camel-amq/${VERSION}"
-
-    ${FUSE_HOME}/bin/client feature:install camel-olingo2"
-    #ENTESB-5048
-    #${FUSE_HOME}/bin/client bundle:install -s mvn:org.jboss.fuse.quickstarts/camel-odata/${VERSION}"
 
     #####${FUSE_HOME}/bin/client feature:install camel-sap"
     #####${FUSE_HOME}/bin/client bundle:install -s mvn:org.jboss.fuse.quickstarts/camel-sap/${VERSION}"
