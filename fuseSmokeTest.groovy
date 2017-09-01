@@ -113,7 +113,7 @@ def updateFuseBomVersion(version) {
 
 def startBroker(fuseHomeDirectory) {
     if (isUnix()) {
-        sh './' + fuseHomeDirectory + '/bin/karaf'
+        sh './' + fuseHomeDirectory + '/bin/start'
     } else {
         bat fuseHomeDirectory + '\\bin\\start'
     }
