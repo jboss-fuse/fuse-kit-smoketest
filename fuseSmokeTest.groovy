@@ -46,17 +46,18 @@ try {
 
     stage 'Quickstart tests'
     if (isUnix()) {
-        maven('-DFUSE_HOME=${PWD}/${FUSE_HOME} -Pquickstarts -Dsurefire.rerunFailingTestsCount=2 -Djboss.fuse.bom.version=' + version + ' clean test')
+        maven('-DFUSE_HOME=${PWD}/${FUSE_HOME} -Pquickstarts -Dsurefire.rerunFailingTestsCount=2 -Djboss.fuse.bom.version=' + quickstartVersion + ' clean test')
     } else {
-        maven('-DFUSE_HOME=' + fuseHome + ' -Pquickstarts -Dsurefire.rerunFailingTestsCount=2 -Djboss.fuse.bom.version=' + version + ' clean test')
+        maven('-DFUSE_HOME=' + fuseHome + ' -Pquickstarts -Dsurefire.rerunFailingTestsCount=2 -Djboss.fuse.bom.version=' + quickstartVersion + ' clean test')
     }
-    stage 'Create a fabric'
-    executeClientCommand(fuseHome, 'fabric:create --wait-for-provisioning --bootstrap-timeout 300000')
 
-    stage 'Other tests'
+    //stage 'Create a fabric'
+    //executeClientCommand(fuseHome, 'fabric:create --wait-for-provisioning --bootstrap-timeout 300000')
+
+    //stage 'Other tests'
     // deploy the camel-cbr quickstart first, the CreateChildContainerTest depends on the profile
-    maven("--file ${fuseHome}/quickstarts/beginner/camel-cbr/pom.xml fabric8:deploy")
-    maven('-DFUSE_HOME=' + fuseHome + ' -Dsurefire.rerunFailingTestsCount=2 -Pnoquickstarts -Djboss.fuse.bom.version=' + version + ' clean test')
+    //maven("--file ${fuseHome}/quickstarts/beginner/camel-cbr/pom.xml fabric8:deploy")
+    /maven('-DFUSE_HOME=' + fuseHome + ' -Dsurefire.rerunFailingTestsCount=2 -Pnoquickstarts -Djboss.fuse.bom.version=' + version + ' clean test')
 } finally {
     stage 'Final shutdown'
     try {

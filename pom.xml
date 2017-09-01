@@ -20,7 +20,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.jboss.fuse.bom</groupId>
+                <groupId>org.jboss.fuse</groupId>
                 <artifactId>jboss-fuse-parent</artifactId>
                 <version>${jboss.fuse.bom.version}</version>
                 <type>pom</type>
