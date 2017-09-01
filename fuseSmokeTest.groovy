@@ -57,7 +57,7 @@ try {
     //stage 'Other tests'
     // deploy the camel-cbr quickstart first, the CreateChildContainerTest depends on the profile
     //maven("--file ${fuseHome}/quickstarts/beginner/camel-cbr/pom.xml fabric8:deploy")
-    /maven('-DFUSE_HOME=' + fuseHome + ' -Dsurefire.rerunFailingTestsCount=2 -Pnoquickstarts -Djboss.fuse.bom.version=' + version + ' clean test')
+    //maven('-DFUSE_HOME=' + fuseHome + ' -Dsurefire.rerunFailingTestsCount=2 -Pnoquickstarts -Djboss.fuse.bom.version=' + version + ' clean test')
 } finally {
     stage 'Final shutdown'
     try {
