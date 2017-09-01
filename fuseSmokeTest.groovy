@@ -148,11 +148,12 @@ def deployQuickstarts(fuseHomeDirectory, version) {
     executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-eips/' + version)
     executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-errorhandler/' + version)
     executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-log/' + version)
-    executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-log-wiki/' + version)
+    // beginner-camel-log-wiki does not seem like it is needed for fuse 7
+    //executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-log-wiki/' + version)
 
-    executeClientCommand(fuseHomeDirectory, 'features:install cxf')
-    executeClientCommand(fuseHomeDirectory, 'features:install fabric-cxf')
-    executeClientCommand(fuseHomeDirectory, 'features:install cxf-ws-security')
+    executeClientCommand(fuseHomeDirectory, 'feature:install cxf')
+    executeClientCommand(fuseHomeDirectory, 'feature:install fabric-cxf')
+    executeClientCommand(fuseHomeDirectory, 'feature:install cxf-ws-security')
 
     executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/cxf-camel-cxf-code-first/' + version)
     executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/cxf-camel-cxf-contract-first/' + version)
@@ -161,21 +162,22 @@ def deployQuickstarts(fuseHomeDirectory, version) {
     executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/cxf-soap/' + version)
     executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/cxf-secure-soap/' + version)
 
-    executeClientCommand(fuseHomeDirectory, 'features:install camel-box')
+    executeClientCommand(fuseHomeDirectory, 'feature:install camel-box')
+    // failing, filed ENTESB-7249
     executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/camel-box/' + version)
-    executeClientCommand(fuseHomeDirectory, 'features:install camel-linkedin')
+    executeClientCommand(fuseHomeDirectory, 'feature:install camel-linkedin')
     executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/camel-linkedin/' + version)
-    executeClientCommand(fuseHomeDirectory, 'features:install camel-salesforce')
+    executeClientCommand(fuseHomeDirectory, 'feature:install camel-salesforce')
     executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/camel-salesforce/' + version)
 
 /*  FIXME check bugs and see which of these should still be working
     ###### ${FUSE_HOME}/bin/client bundle:install -s mvn:org.jboss.quickstarts.fuse/camel-amq/${VERSION}"
 
-    ${FUSE_HOME}/bin/client features:install camel-olingo2"
+    ${FUSE_HOME}/bin/client feature:install camel-olingo2"
     #ENTESB-5048
     #${FUSE_HOME}/bin/client bundle:install -s mvn:org.jboss.fuse.quickstarts/camel-odata/${VERSION}"
 
-    #####${FUSE_HOME}/bin/client features:install camel-sap"
+    #####${FUSE_HOME}/bin/client feature:install camel-sap"
     #####${FUSE_HOME}/bin/client bundle:install -s mvn:org.jboss.fuse.quickstarts/camel-sap/${VERSION}"
 */
 }
