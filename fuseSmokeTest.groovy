@@ -151,7 +151,6 @@ def deployQuickstarts(fuseHomeDirectory, version) {
     //executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/beginner-camel-log-wiki/' + version)
 
     executeClientCommand(fuseHomeDirectory, 'feature:install cxf')
-    executeClientCommand(fuseHomeDirectory, 'feature:install fabric-cxf')
     executeClientCommand(fuseHomeDirectory, 'feature:install cxf-ws-security')
 
     executeClientCommand(fuseHomeDirectory, 'bundle:install -s mvn:org.jboss.fuse.quickstarts/cxf-camel-cxf-code-first/' + version)
