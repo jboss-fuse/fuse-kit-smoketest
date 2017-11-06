@@ -68,9 +68,6 @@ try {
     stage 'shutdown complete'
     // FIXME!!!! step([$class: 'JUnitResultArchiver', testDataPublishers: [[$class: 'JUnitFlakyTestDataPublisher']], testResults: '**/target/*-reports/*.xml']
 
-    if (!isUnix()) {
-        build job: 'Reboot_windows', quietPeriod: 30, wait: false
-    }
 }
 
 // TODO find somewhere to put this code so it can be shared.
